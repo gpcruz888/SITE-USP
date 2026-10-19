@@ -1,0 +1,47 @@
+import { ReadingNav } from '@/components/layout/ReadingNav'
+import { Header } from '@/components/layout/Header'
+import { Footer } from '@/components/layout/Footer'
+import { Hero } from '@/sections/Hero'
+import { OQueE } from '@/sections/OQueE'
+import { UspEca } from '@/sections/UspEca'
+import { ParaQuem } from '@/sections/ParaQuem'
+import { PensamentoEstrategico } from '@/sections/PensamentoEstrategico'
+import { ExperienciaPresencial } from '@/sections/ExperienciaPresencial'
+import { Programa } from '@/sections/Programa'
+import { CorpoDocente } from '@/sections/CorpoDocente'
+import { Trajetoria } from '@/sections/Trajetoria'
+import { Turma2027 } from '@/sections/Turma2027'
+import { ProcessoSeletivo } from '@/sections/ProcessoSeletivo'
+import { Faq } from '@/sections/Faq'
+import { Encerramento } from '@/sections/Encerramento'
+
+export default function App() {
+  return (
+    <>
+      <a
+        href="#conteudo-principal"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-sm focus:border focus:border-blue focus:bg-white focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-blue focus:shadow-md"
+      >
+        Ir para o conteúdo principal
+      </a>
+      <Header />
+      <main id="conteudo-principal">
+        <Hero />
+        <OQueE />
+        <UspEca />
+        <ParaQuem />
+        <PensamentoEstrategico />
+        <ExperienciaPresencial />
+        <Programa />
+        <CorpoDocente />
+        <Trajetoria />
+        <Turma2027 />
+        <ProcessoSeletivo />
+        <Faq />
+        <Encerramento />
+      </main>
+      <ReadingNav />
+      <Footer />
+    </>
+  )
+}
