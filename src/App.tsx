@@ -1,6 +1,8 @@
-import { ReadingNav } from '@/components/layout/ReadingNav'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { WhatsAppFab } from '@/components/layout/WhatsAppFab'
+import { StickyCta } from '@/components/layout/StickyCta'
+import { HeroHighlight } from '@/components/layout/HeroHighlight'
 import { Hero } from '@/sections/Hero'
 import { OQueE } from '@/sections/OQueE'
 import { UspEca } from '@/sections/UspEca'
@@ -27,6 +29,7 @@ export default function App() {
       <Header />
       <main id="conteudo-principal">
         <Hero />
+        <HeroHighlight />
         <OQueE />
         <UspEca />
         <ParaQuem />
@@ -40,7 +43,8 @@ export default function App() {
         <Faq />
         <Encerramento />
       </main>
-      <ReadingNav />
+      <StickyCta />
+      <WhatsAppFab />
       <Footer />
     </>
   )

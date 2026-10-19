@@ -1,13 +1,15 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import {
   Layers,
   Building2,
   Palette,
   FileText,
+  FileCheck2,
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { banners } from '@/data/banners'
 import { modulos, trabalhoFinal } from '@/data/programa'
 import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 
@@ -22,13 +24,14 @@ const moduleThemes = [
 
 export function Programa() {
   const [active, setActive] = useState(0)
+  const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const baseId = useId()
   const modulo = modulos[active]
 
   return (
     <section
       id="programa"
-      className="bg-cream-light py-20 md:py-28"
+      className="curriculum-section bg-cream-light pt-20 md:pt-28"
       aria-labelledby="programa-title"
     >
       <div className="container-site">
@@ -49,7 +52,7 @@ export function Programa() {
             className="module-tabs"
             role="tablist"
             aria-label="Módulos do programa"
-            aria-orientation="vertical"
+            aria-orientation="horizontal"
           >
             {modulos.map((item, index) => (
               <button
@@ -58,27 +61,23 @@ export function Programa() {
                 role="tab"
                 id={`${baseId}-tab-${index}`}
                 aria-selected={active === index}
-                aria-controls={`${baseId}-panel-${index}`}
+                aria-controls={`${baseId}-panel`}
+                ref={element => { tabs.current[index] = element }}
                 tabIndex={active === index ? 0 : -1}
                 className="module-tab relative"
                 onClick={() => setActive(index)}
                 onKeyDown={(event) => {
-                  if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
-                    event.preventDefault()
-                    setActive((index + 1) % modulos.length)
-                  }
-                  if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
-                    event.preventDefault()
-                    setActive((index - 1 + modulos.length) % modulos.length)
-                  }
+                  let next = index
+                  if (event.key === 'ArrowRight') next = (index + 1) % modulos.length
+                  else if (event.key === 'ArrowLeft') next = (index - 1 + modulos.length) % modulos.length
+                  else if (event.key === 'Home') next = 0
+                  else if (event.key === 'End') next = modulos.length - 1
+                  else return
+                  event.preventDefault()
+                  setActive(next)
+                  tabs.current[next]?.focus()
                 }}
               >
-                {active === index && (
-                  <span
-                    className="absolute top-0 bottom-0 left-0 w-1 bg-orange transition-all duration-250"
-                    aria-hidden="true"
-                  />
-                )}
                 <Icon
                   icon={moduleIcons[index]}
                   size={18}
@@ -98,7 +97,9 @@ export function Programa() {
           <div
             className="module-panel"
             role="tabpanel"
-            id={`${baseId}-panel-${active}`}
+            id={`${baseId}-panel`}
+            key={modulo.id}
+            tabIndex={0}
             aria-labelledby={`${baseId}-tab-${active}`}
           >
             <div className="flex flex-col gap-6 border-b border-border-subtle pb-8 md:flex-row md:items-start md:gap-10">
@@ -152,12 +153,21 @@ export function Programa() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-6 border-t border-border pt-10 md:grid-cols-12 md:items-start">
-          <h3 className="text-xl font-medium tracking-[-0.03em] text-graphite md:col-span-3 md:text-2xl">
-            Trabalho final
-          </h3>
-          <div className="md:col-span-9">
-            <p className="max-w-3xl text-[1.0625rem] leading-relaxed text-graphite-muted md:text-lg">
+      </div>
+
+      <div
+        className="trabalho-final-band relative mt-16 flex min-h-[26rem] items-end md:mt-20 md:min-h-[32rem]"
+        style={{ backgroundImage: `url(${banners.trabalhoFinal})` }}
+      >
+        <div className="absolute inset-0 bg-blue-deep/25" aria-hidden="true" />
+
+        <div className="relative container-site w-full">
+          <div className="max-w-xl rounded-t-2xl bg-blue/92 px-7 py-9 text-white backdrop-blur-[2px] sm:px-9 sm:py-10 md:max-w-lg lg:max-w-xl">
+            <div className="work-final-heading">
+              <span className="work-final-icon" aria-hidden="true"><Icon icon={FileCheck2} size={23} strokeWidth={1.6} /></span>
+              <h3 className="text-2xl font-bold tracking-[-0.03em] md:text-[1.75rem]">Trabalho final</h3>
+            </div>
+            <p className="mt-4 text-[1.0625rem] leading-relaxed text-white/85">
               {trabalhoFinal}
             </p>
             <div className="mt-8">

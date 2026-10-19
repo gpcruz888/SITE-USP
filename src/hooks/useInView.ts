@@ -19,7 +19,7 @@ export function useInView<T extends HTMLElement = HTMLDivElement>({
     if (!node) return
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
+    if (prefersReduced || typeof IntersectionObserver === 'undefined') {
       setInView(true)
       return
     }

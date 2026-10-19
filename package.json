@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -p tsconfig.app.json --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepreview": "npm run build"
   },
   "dependencies": {
     "lucide-react": "^1.59.0",

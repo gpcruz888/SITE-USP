@@ -100,11 +100,11 @@ export function InterestForm({
   }
 
   const fieldClass = conversion
-    ? 'w-full min-h-12 border border-border bg-white px-4 py-3 text-base text-graphite transition-colors placeholder:text-graphite-light/50 focus:border-blue focus:outline-2 focus:outline-offset-0 focus:outline-blue'
-    : 'w-full border border-border/80 bg-cream-light/40 px-4 py-3 text-[0.9375rem] text-graphite transition-colors placeholder:text-graphite-light/50 focus:border-blue focus:bg-white focus:outline-none'
+    ? 'w-full min-h-12 rounded-xl border border-border bg-cream-light px-4 py-3 text-base text-graphite transition-colors placeholder:text-graphite-muted/60 focus:border-blue focus:outline-2 focus:outline-offset-0 focus:outline-blue'
+    : 'w-full rounded-xl border border-border bg-cream-light px-4 py-3 text-[0.9375rem] text-graphite transition-colors placeholder:text-graphite-muted/60 focus:border-blue focus:bg-cream-warm focus:outline-none'
 
   const labelClass = conversion
-    ? 'mb-2 block text-sm font-medium text-graphite'
+    ? 'mb-2 block text-sm font-medium text-blue-deep'
     : 'mb-1.5 block text-sm font-medium text-graphite-muted'
 
   return (
@@ -215,13 +215,13 @@ export function InterestForm({
           <input
             type="checkbox"
             name="consentimento"
-            className="mt-0.5 h-4 w-4 rounded-none accent-blue"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded-none accent-blue"
             checked={values.consentimento}
             onChange={(e) => updateField('consentimento', e.target.checked)}
             onBlur={() => handleBlur('consentimento')}
             aria-invalid={touched.consentimento && !!errors.consentimento}
           />
-          <span>
+          <span className="min-w-0 text-pretty">
             Autorizo o Gestcorp ECA-USP a tratar meus dados para contato sobre a especialização e
             turmas de interesse, conforme a legislação aplicável.
           </span>

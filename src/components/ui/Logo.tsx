@@ -1,4 +1,4 @@
-import logoGestcorp from '@/img/logo ges.png'
+import logoGestcorp from '@/img/optimized/logo-gestcorp.png'
 
 interface LogoProps {
   className?: string

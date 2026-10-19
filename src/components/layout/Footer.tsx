@@ -5,7 +5,7 @@ import logoEcaUsp2017 from '@/img/logo_ECA_USP_2017.png'
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-graphite pb-24 text-cream-light md:pb-28">
+    <footer className="border-t border-white/10 bg-blue-deep pb-24 text-cream md:pb-28">
       <div className="container-site py-14 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
@@ -21,14 +21,14 @@ export function Footer() {
             <p className="max-w-md text-[0.9375rem] font-medium leading-relaxed text-white">
               {contact.identification}
             </p>
-            <p className="mt-3 max-w-md text-sm leading-relaxed text-cream-light/55">
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-cream/55">
               {contact.department}
             </p>
           </div>
 
           <div className="lg:col-span-4">
-            <h2 className="text-sm font-medium text-cream-light/50">Contato</h2>
-            <address className="mt-5 not-italic space-y-4 text-sm leading-relaxed text-cream-light/80">
+            <h2 className="text-sm font-medium text-cream/50">Contato</h2>
+            <address className="mt-5 not-italic space-y-4 text-sm leading-relaxed text-cream/80">
               <p>{contact.address}</p>
               <p>
                 Secretaria do Gestcorp:{' '}
@@ -42,7 +42,7 @@ export function Footer() {
                     WhatsApp {contact.whatsappNumber}
                   </a>
                 ) : (
-                  <span className="text-cream-light/70">WhatsApp [número oficial]</span>
+                  <span className="text-cream/70">WhatsApp [número oficial]</span>
                 )}{' '}
                 ·{' '}
                 <a
@@ -57,14 +57,14 @@ export function Footer() {
 
           {/* Coluna Links */}
           <div className="lg:col-span-3">
-            <h2 className="text-sm font-medium text-cream-light/55">Links</h2>
+            <h2 className="text-sm font-medium text-cream/55">Links</h2>
             <ul className="mt-5 space-y-2.5 text-sm">
               <li>
                 <a
                   href={contact.ecaUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-cream-light/80 no-underline transition-colors hover:text-white"
+                  className="text-cream/80 no-underline transition-colors hover:text-white"
                 >
                   ECA-USP
                 </a>
@@ -75,12 +75,12 @@ export function Footer() {
                     href={contact.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cream-light/80 no-underline transition-colors hover:text-white"
+                    className="text-cream/80 no-underline transition-colors hover:text-white"
                   >
                     Instagram
                   </a>
                 ) : (
-                  <span className="text-cream-light/40">Instagram [pendente]</span>
+                  <span className="text-cream/40">Instagram [pendente]</span>
                 )}
               </li>
               <li>
@@ -89,33 +89,32 @@ export function Footer() {
                     href={contact.social.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-cream-light/80 no-underline transition-colors hover:text-white"
+                    className="text-cream/80 no-underline transition-colors hover:text-white"
                   >
                     LinkedIn
                   </a>
                 ) : (
-                  <span className="text-cream-light/40">LinkedIn [pendente]</span>
+                  <span className="text-cream/40">LinkedIn [pendente]</span>
                 )}
               </li>
               <li>
                 {contact.privacyPolicyUrl ? (
                   <a
                     href={contact.privacyPolicyUrl}
-                    className="text-cream-light/80 no-underline transition-colors hover:text-white"
+                    className="text-cream/80 no-underline transition-colors hover:text-white"
                   >
                     Política de privacidade
                   </a>
                 ) : (
-                  <span className="text-cream-light/40">Política de privacidade [pendente]</span>
+                  <span className="text-cream/40">Política de privacidade [pendente]</span>
                 )}
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Linha Inferior com Copyright, Selo ECA-USP e Revisão */}
         <div className="mt-16 border-t border-white/10 pt-8">
-          <div className="flex flex-col gap-4 text-xs text-cream-light/60 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 text-xs text-cream/55 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
               <img
                 src={logoEcaUsp2017}

@@ -1,5 +1,5 @@
 import { useId, useState } from 'react'
-import { Minus, Plus, Briefcase, BookOpen, TrendingUp } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 
@@ -7,21 +7,18 @@ const perfis = [
   {
     id: 'p1',
     num: '01',
-    icon: Briefcase,
     title: 'Quando a Comunicação passa a participar das decisões',
     text: 'Você lida com lideranças, reputação, crises, públicos estratégicos e questões que atravessam diferentes áreas da organização.',
   },
   {
     id: 'p2',
     num: '02',
-    icon: BookOpen,
     title: 'Quando a experiência pede novos fundamentos',
     text: 'Você já conhece a prática profissional e deseja aprofundar os conceitos, os métodos de pesquisa e as perspectivas que sustentam suas escolhas.',
   },
   {
     id: 'p3',
     num: '03',
-    icon: TrendingUp,
     title: 'Quando é hora de ampliar sua atuação',
     text: 'Você busca assumir novos desafios, desenvolver projetos de maior complexidade ou ampliar suas possibilidades profissionais sem se afastar do campo da Comunicação.',
   },
@@ -34,17 +31,19 @@ export function ParaQuem() {
   return (
     <section
       id="para-quem"
-      className="bg-cream-light py-20 md:py-28"
+      className="audience-section bg-cream-light py-20 md:py-28"
       aria-labelledby="para-quem-title"
     >
       <div className="container-site">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
-          <h2
-            id="para-quem-title"
-            className="text-title-md text-graphite lg:col-span-5"
-          >
-            Sua experiência já trouxe perguntas maiores
-          </h2>
+          <div className="lg:col-span-5">
+            <p className="text-xs font-semibold tracking-[0.14em] text-blue uppercase">
+              Para quem
+            </p>
+            <h2 id="para-quem-title" className="text-title-md mt-4 text-blue-deep">
+              Sua experiência já trouxe perguntas maiores
+            </h2>
+          </div>
           <div className="prose-editorial lg:col-span-7">
             <p className="text-graphite">
               Em diferentes momentos da carreira, o trabalho em Comunicação passa a exigir decisões
@@ -78,25 +77,19 @@ export function ParaQuem() {
                   <button
                     type="button"
                     id={buttonId}
-                    className={[
-                      'grid w-full cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 bg-transparent py-6 text-left md:gap-6 md:py-7',
-                      open ? 'border-l-4 border-l-blue pl-4 md:pl-5' : 'border-l-4 border-l-transparent pl-4 md:pl-5',
-                    ].join(' ')}
+                    className="grid w-full cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 bg-transparent py-6 text-left md:gap-6 md:py-7"
                     aria-expanded={open}
                     aria-controls={panelId}
                     onClick={() => setOpenId(open ? '' : perfil.id)}
                   >
-                    <span className="flex items-center gap-3">
-                      <span className="text-xl font-medium tracking-[-0.03em] text-blue tabular-nums md:text-2xl">
-                        {perfil.num}
-                      </span>
-                      <Icon icon={perfil.icon} size={18} className="hidden text-orange sm:block" />
+                    <span className="text-xl font-semibold tracking-[-0.03em] text-blue tabular-nums md:text-2xl">
+                      {perfil.num}
                     </span>
-                    <span className="text-lg font-medium tracking-[-0.03em] text-graphite md:text-xl md:leading-snug">
+                    <span className="text-lg font-medium tracking-[-0.03em] text-blue-deep md:text-xl md:leading-snug">
                       {perfil.title}
                     </span>
                     <span
-                      className="flex h-9 w-9 items-center justify-center border border-border text-blue"
+                      className="flex h-9 w-9 items-center justify-center rounded-md bg-cream-light text-blue"
                       aria-hidden="true"
                     >
                       <Icon icon={open ? Minus : Plus} size={16} />
@@ -108,20 +101,14 @@ export function ParaQuem() {
                   id={panelId}
                   role="region"
                   aria-labelledby={buttonId}
+                  inert={!open}
+                  aria-hidden={!open}
                   className={['expand-panel', open ? 'is-open' : ''].join(' ')}
                 >
                   <div>
-                    <div className="grid gap-6 border-l-4 border-l-blue/20 pb-8 pl-4 md:grid-cols-12 md:gap-8 md:pl-5">
-                      <div className="relative md:col-span-1">
-                        <span
-                          className="absolute top-0 bottom-0 left-2 hidden w-px bg-border md:block"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <p className="text-[1.0625rem] leading-relaxed text-graphite-muted md:col-span-10 md:text-lg">
-                        {perfil.text}
-                      </p>
-                    </div>
+                    <p className="max-w-3xl pb-8 text-[1.0625rem] leading-relaxed text-graphite-muted md:text-lg">
+                      {perfil.text}
+                    </p>
                   </div>
                 </div>
               </div>

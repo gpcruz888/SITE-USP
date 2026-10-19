@@ -9,6 +9,7 @@ interface MediaFrameProps {
   treatment?: Treatment
   className?: string
   tone?: 'cream' | 'blue' | 'warm'
+  src?: string
 }
 
 const variantClass: Record<Variant, string> = {
@@ -20,15 +21,15 @@ const variantClass: Record<Variant, string> = {
 
 const treatmentClass: Record<Treatment, string> = {
   default: '',
-  bleed: 'media-frame--bleed',
-  offset: 'media-frame--offset',
-  'round-top': 'media-frame--round-top',
+  bleed: '',
+  offset: '',
+  'round-top': '',
 }
 
 const toneClass: Record<NonNullable<MediaFrameProps['tone']>, string> = {
   cream: 'bg-placeholder text-blue',
-  blue: 'bg-blue-dark text-cream',
-  warm: 'bg-cream-muted text-blue',
+  blue: 'bg-blue-deep text-cream',
+  warm: 'bg-blue-soft text-blue',
 }
 
 export function MediaFrame({
@@ -39,30 +40,42 @@ export function MediaFrame({
   treatment = 'default',
   className = '',
   tone = 'cream',
+  src,
 }: MediaFrameProps) {
+  const hasPhoto = Boolean(src)
+
   return (
     <figure
       className={[
-        'media-frame',
+        'media-frame overflow-hidden rounded-lg',
         variantClass[variant],
         treatmentClass[treatment],
-        toneClass[tone],
+        hasPhoto ? 'media-frame--photo' : toneClass[tone],
         className,
       ]
         .filter(Boolean)
         .join(' ')}
-      role="img"
-      aria-label={label}
+      role={hasPhoto ? undefined : 'img'}
+      aria-label={hasPhoto ? undefined : label}
     >
-      <div className="media-frame__grid" aria-hidden="true" />
-      <div className="media-frame__arc" aria-hidden="true" />
-      <span className="media-frame__mark" aria-hidden="true">
-        {mark}
-      </span>
-      <figcaption className="media-frame__caption">
-        <span>{caption}</span>
-        <span>{label}</span>
-      </figcaption>
+      {hasPhoto ? (
+        <img
+          src={src}
+          alt={label}
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <span className="media-frame__mark" aria-hidden="true">
+          {mark}
+        </span>
+      )}
+      {caption ? (
+        <figcaption className="media-frame__caption">
+          <span>{caption}</span>
+        </figcaption>
+      ) : null}
     </figure>
   )
 }

@@ -9,16 +9,26 @@ export function Header() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    document.body.toggleAttribute('data-menu-open', open)
+    if (!open) {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+      return
+    }
+    const scrollbar = window.innerWidth - document.documentElement.clientWidth
+    document.body.style.overflow = 'hidden'
+    if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`
     return () => {
       document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+      document.body.removeAttribute('data-menu-open')
     }
   }, [open])
 
@@ -29,8 +39,10 @@ export function Header() {
         document.querySelector<HTMLButtonElement>('[aria-controls="menu-mobile"]')?.focus()
       }
     }
-    const desktop = window.matchMedia('(min-width: 1024px)')
-    const closeOnDesktop = () => { if (desktop.matches) setOpen(false) }
+    const desktop = window.matchMedia('(min-width: 1280px)')
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false)
+    }
     window.addEventListener('keydown', closeOnEscape)
     desktop.addEventListener('change', closeOnDesktop)
     return () => {
@@ -43,103 +55,130 @@ export function Header() {
     setOpen(false)
   }
 
+  const onDark = !scrolled && !open
+  const floated = scrolled || open
+
   return (
     <header
       className={[
-        'sticky top-0 z-50 transition-all duration-300',
-        scrolled
-          ? 'border-b border-border/80 bg-cream-light/95 shadow-[0_1px_3px_rgba(0,0,0,0.03)] backdrop-blur-md'
-          : 'border-b border-border/40 bg-cream-light',
+        'site-header fixed inset-x-0 top-0 z-50 transition-all duration-300',
+        floated ? 'site-header--floated' : '',
       ].join(' ')}
     >
-      <div className="container-site flex h-20 items-center justify-between gap-6 md:h-24">
-        <a
-          href="#topo"
-          className="shrink-0 no-underline transition-opacity hover:opacity-85 focus-visible:outline-blue"
-          onClick={handleNavClick}
-          aria-label="Gestcorp ECA-USP — início"
-        >
-          <Logo />
-        </a>
-
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Navegação Principal">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-[0.875rem] font-medium tracking-tight text-graphite-muted no-underline transition-colors hover:text-blue focus-visible:outline-blue"
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <Button
-            href={getWhatsAppHref()}
-            target={getWhatsAppTarget()}
-            rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
-            size="md"
-            className="hidden sm:inline-flex"
-          >
-            Quero saber como participar
-          </Button>
-
-          <button
-            type="button"
-            className="inline-flex h-11 w-11 items-center justify-center border border-border/80 bg-white/60 text-graphite transition-colors hover:border-graphite focus-visible:outline-blue lg:hidden"
-            aria-expanded={open}
-            aria-controls="menu-mobile"
-            aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="sr-only">{open ? 'Fechar' : 'Abrir'} menu</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              {open ? (
-                <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              ) : (
-                <>
-                  <path d="M3 6h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M3 11h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M3 16h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </>
-              )}
-            </svg>
-          </button>
-        </div>
-      </div>
-
       <div
-        id="menu-mobile"
-        hidden={!open}
-        className="border-t border-border/80 bg-cream-light/98 backdrop-blur-lg lg:hidden"
+        className={[
+          'site-header-surface transition-all duration-300',
+          floated
+            ? 'overflow-hidden rounded-xl border border-border/60 bg-cream-warm/96 shadow-[0_10px_36px_rgba(17,38,75,0.10)] backdrop-blur-md sm:rounded-2xl'
+            : 'border border-transparent bg-transparent',
+        ].join(' ')}
       >
-        <nav className="container-site flex flex-col py-6" aria-label="Navegação Mobile">
-          {navItems.map((item) => (
+        <div className="container-site flex h-16 items-center justify-between gap-4 md:h-20 md:gap-6">
+          <div className="flex min-w-0 items-center gap-7 lg:gap-9">
             <a
-              key={item.href}
-              href={item.href}
+              href="#topo"
+              className="shrink-0 no-underline transition-opacity hover:opacity-85 focus-visible:outline-blue"
               onClick={handleNavClick}
-              className="border-b border-border/50 py-4 text-base font-medium tracking-tight text-graphite no-underline transition-colors hover:text-blue"
+              aria-label="Gestcorp ECA-USP — início"
             >
-              {item.label}
+              <Logo light={onDark} />
             </a>
-          ))}
-          <div className="pt-6 pb-2">
+
+            <nav
+              className="hidden items-center gap-4 xl:gap-5 xl:flex"
+              aria-label="Navegação Principal"
+            >
+              {navItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={[
+                    'whitespace-nowrap text-[0.8125rem] font-medium tracking-tight no-underline transition-colors focus-visible:outline-blue xl:text-[0.875rem]',
+                    onDark
+                      ? 'text-white/80 hover:text-white'
+                      : 'text-blue-deep hover:text-blue',
+                  ].join(' ')}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          <div className="flex shrink-0 items-center gap-3">
             <Button
               href={getWhatsAppHref()}
               target={getWhatsAppTarget()}
               rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
-              className="w-full justify-center"
-              size="lg"
-              onClick={handleNavClick}
+              size="sm"
+              className="hidden sm:inline-flex"
             >
-              Quero saber como participar
+              Quero saber mais
             </Button>
+
+            <button
+              type="button"
+              className={[
+                'inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors focus-visible:outline-blue xl:hidden',
+                onDark
+                  ? 'bg-white/10 text-white hover:bg-white/20'
+                  : 'bg-cream-light text-blue-deep hover:bg-blue-soft',
+              ].join(' ')}
+              aria-expanded={open}
+              aria-controls="menu-mobile"
+              aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+              onClick={() => setOpen((v) => !v)}
+            >
+              <span className="sr-only">{open ? 'Fechar' : 'Abrir'} menu</span>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                {open ? (
+                  <path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                ) : (
+                  <>
+                    <path d="M3 6h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M3 11h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    <path d="M3 16h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                  </>
+                )}
+              </svg>
+            </button>
           </div>
-        </nav>
+        </div>
+
+        <div
+          id="menu-mobile"
+          hidden={!open}
+          className="border-t border-border/80 xl:hidden"
+        >
+          <nav
+            className="container-site flex max-h-[min(70svh,32rem)] flex-col overflow-y-auto py-6"
+            aria-label="Navegação Mobile"
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={handleNavClick}
+                className="border-b border-border/50 py-4 text-base font-medium tracking-tight text-blue-deep no-underline transition-colors hover:text-blue"
+              >
+                {item.label}
+              </a>
+            ))}
+            <div className="pt-6 pb-2">
+              <Button
+                href={getWhatsAppHref()}
+                target={getWhatsAppTarget()}
+                rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+                className="w-full justify-center"
+                size="lg"
+                onClick={handleNavClick}
+              >
+                Quero saber mais
+              </Button>
+            </div>
+          </nav>
+        </div>
       </div>
     </header>
   )
 }
-

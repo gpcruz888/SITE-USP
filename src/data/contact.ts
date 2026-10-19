@@ -1,6 +1,6 @@
 export const contact = {
   email: 'gestcorp@usp.br',
-  whatsappNumber: null as string | null, // [número oficial] — pendente de confirmação
+  whatsappNumber: '5511976135520',
   whatsappLabel: 'WhatsApp',
   address: 'Av. Prof. Lúcio Martins Rodrigues, 443, Cidade Universitária, São Paulo (SP)',
   department:

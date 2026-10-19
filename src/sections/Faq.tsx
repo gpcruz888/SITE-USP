@@ -10,19 +10,14 @@ export function Faq() {
   return (
     <section
       id="duvidas"
-      className="bg-white py-20 md:py-28"
+      className="faq-section bg-white py-20 md:py-28"
       aria-labelledby="faq-title"
     >
       <div className="container-site">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-          <div className="relative lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
-            <span
-              className="relative mb-6 block h-14 w-14 rounded-full border border-blue"
-              aria-hidden="true"
-            >
-              <span className="absolute top-3 left-3 h-3 w-3 rounded-full bg-orange" />
-            </span>
-            <h2 id="faq-title" className="text-title-md text-graphite">
+          <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">
+            <p className="text-xs font-semibold tracking-[0.14em] text-blue uppercase">Dúvidas</p>
+            <h2 id="faq-title" className="text-title-md mt-4 text-blue-deep">
               Perguntas frequentes sobre o Gestcorp
             </h2>
           </div>
@@ -65,6 +60,8 @@ export function Faq() {
                     id={panelId}
                     role="region"
                     aria-labelledby={buttonId}
+                    inert={!open}
+                    aria-hidden={!open}
                     className={['expand-panel', open ? 'is-open' : ''].join(' ')}
                   >
                     <div>
