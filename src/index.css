@@ -406,8 +406,8 @@
   }
 
   .reading-nav a[aria-current] {
-    background: var(--color-blue);
-    color: white;
+    background: #ebebeb;
+    color: var(--color-graphite);
   }
 
   @keyframes panel-in {
