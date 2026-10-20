@@ -1,4 +1,4 @@
-/** Tipos preparados para integração futura com o painel administrativo. */
+/** Contrato de captação pública integrado ao painel administrativo. */
 
 export interface LeadPayload {
   nome: string
@@ -13,6 +13,5 @@ export interface LeadPayload {
 export type LeadSubmitStatus =
   | 'idle'
   | 'loading'
-  | 'integration_pending'
   | 'error'
   | 'success'

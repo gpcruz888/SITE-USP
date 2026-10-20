@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { WhatsAppFab } from '@/components/layout/WhatsAppFab'
@@ -11,13 +12,23 @@ import { PensamentoEstrategico } from '@/sections/PensamentoEstrategico'
 import { ExperienciaPresencial } from '@/sections/ExperienciaPresencial'
 import { Programa } from '@/sections/Programa'
 import { CorpoDocente } from '@/sections/CorpoDocente'
+import { VideoPlaceholder } from '@/sections/VideoPlaceholder'
 import { Trajetoria } from '@/sections/Trajetoria'
 import { Turma2027 } from '@/sections/Turma2027'
 import { ProcessoSeletivo } from '@/sections/ProcessoSeletivo'
 import { Faq } from '@/sections/Faq'
 import { Encerramento } from '@/sections/Encerramento'
 
+const AdminApp = lazy(() => import('@/admin/AdminApp'))
+const PublicApplication = lazy(() => import('@/admin/PublicApplication'))
+
 export default function App() {
+  if (/^\/admin(?:\/|$)/.test(window.location.pathname)) return <Suspense fallback={<div role="status" style={{padding:40}}>Carregando…</div>}><AdminApp /></Suspense>
+  if (window.location.pathname === '/inscricao') return <Suspense fallback={<div role="status" style={{padding:40}}>Carregando…</div>}><PublicApplication /></Suspense>
+  return <PublicHome />
+}
+
+function PublicHome() {
   return (
     <>
       <a
@@ -37,6 +48,7 @@ export default function App() {
         <ExperienciaPresencial />
         <Programa />
         <CorpoDocente />
+        <VideoPlaceholder />
         <Trajetoria />
         <Turma2027 />
         <ProcessoSeletivo />

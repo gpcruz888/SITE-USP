@@ -1,29 +1,22 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Runtime pessoal e ferramentas de hospedagem
+/data/
+/.vercel/
+*.sqlite*
+*.db
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Dependências e build
+node_modules/
+dist/
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+**/.DS_Store
 
-# Env
+# Env locais
 .env
-.env.*
-!.env.example
+.env.local
+.env.*.local
+
+# Crops temporários de referência (não usar no site)
+src/img/professores/_from_print/
+
+# Duplicatas acidentais de otimização
+src/img/optimized/professores/* 2.jpg

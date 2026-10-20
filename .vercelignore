@@ -1,0 +1,10 @@
+.git
+node_modules
+.vercel
+data
+.env
+.env.*
+*.log
+*.sqlite*
+*.db
+tests

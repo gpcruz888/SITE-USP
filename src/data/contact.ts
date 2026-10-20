@@ -9,8 +9,9 @@ export const contact = {
     'Gestcorp ECA-USP | Especialização em Gestão Estratégica em Comunicação Organizacional e Relações Públicas',
   privacyPolicyUrl: null as string | null, // Pendente de configuração
   social: {
-    instagram: null as string | null, // Pendente de configuração
-    linkedin: null as string | null, // Pendente de configuração
+    linkedin: 'https://www.linkedin.com/company/gestcorp-eca-usp',
+    instagram: 'https://www.instagram.com/gestcorp_eca_usp/',
+    facebook: 'https://www.facebook.com/gestcorpecausp/',
   },
   ecaUrl: 'https://www.eca.usp.br/',
   updatedAt: null as string | null, // [data da revisão] — pendente

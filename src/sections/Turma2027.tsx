@@ -65,8 +65,7 @@ export function Turma2027() {
               Manifeste seu interesse
             </h3>
             <p className="mt-3 mb-8 text-sm leading-relaxed text-cream/70">
-              Deixe seus dados para receber orientações sobre a turma. O envio ao sistema será
-              integrado na etapa administrativa.
+              Deixe seus dados para receber orientações sobre a turma.
             </p>
             <div className="rounded-2xl bg-cream-warm p-5 sm:p-6 md:p-8">
               <InterestForm conversion />

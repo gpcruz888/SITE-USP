@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from 'react'
+import { mutate } from '@/lib/api'
 import { Button } from '@/components/ui/Button'
 import { getTurmaAtiva, turmas } from '@/data/turma'
 
-type FormStatus = 'idle' | 'loading' | 'integration_pending' | 'error'
+type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
 interface FormValues {
   nome: string
@@ -48,9 +49,11 @@ function validate(values: FormValues): FormErrors {
 export function InterestForm({
   className = '',
   conversion = false,
+  applicationProcessId,
 }: {
   className?: string
   conversion?: boolean
+  applicationProcessId?: string
 }) {
   const turmaAtiva = getTurmaAtiva()
   const [values, setValues] = useState<FormValues>({
@@ -62,11 +65,13 @@ export function InterestForm({
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [status, setStatus] = useState<FormStatus>('idle')
+  const [serverMessage, setServerMessage] = useState('')
   const [touched, setTouched] = useState<Record<string, boolean>>({})
 
   function updateField<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }))
     setStatus('idle')
+    setServerMessage('')
   }
 
   function handleBlur(field: keyof FormValues) {
@@ -93,10 +98,19 @@ export function InterestForm({
 
     setStatus('loading')
 
-    // Integração com backend pendente (etapa administrativa futura).
-    // Payload preparado: { ...values, origem: 'home', createdAt: ISO }
-    await new Promise((resolve) => setTimeout(resolve, 700))
-    setStatus('integration_pending')
+    setServerMessage('')
+    try {
+      const result = await mutate<{ message: string }>(
+        applicationProcessId ? '/public/applications' : '/public/interests',
+        'POST',
+        { ...values, ...(applicationProcessId ? { process_id: applicationProcessId } : {}) },
+      )
+      setServerMessage(result.message)
+      setStatus('success')
+    } catch (error) {
+      setServerMessage(error instanceof Error ? error.message : 'Não foi possível enviar. Tente novamente.')
+      setStatus('error')
+    }
   }
 
   const fieldClass = conversion
@@ -234,8 +248,8 @@ export function InterestForm({
       </div>
 
       <div className="pt-2">
-        <Button type="submit" size="lg" disabled={status === 'loading'} className="w-full">
-          {status === 'loading' ? 'Enviando…' : 'Enviar interesse'}
+        <Button type="submit" size="lg" disabled={status === 'loading' || status === 'success'} className="w-full">
+          {status === 'loading' ? 'Enviando…' : status === 'success' ? 'Enviado com sucesso' : applicationProcessId ? 'Enviar inscrição' : 'Enviar interesse'}
         </Button>
       </div>
 
@@ -245,21 +259,21 @@ export function InterestForm({
         role="status"
         aria-live="polite"
       >
-        {status === 'integration_pending' && (
+        {status === 'success' && (
           <span className="text-blue font-medium">
-            Seus dados foram validados na interface. O envio ao sistema ainda não está disponível —
-            integração pendente da etapa administrativa.
+            {serverMessage}
           </span>
         )}
-        {status === 'error' && Object.keys(errors).length > 0 && (
+        {status === 'error' && (
           <span className="text-orange-dark">
-            Revise os campos destacados antes de continuar.
+            {serverMessage || 'Revise os campos destacados antes de continuar.'}
           </span>
         )}
         {status === 'idle' && (
-          <>O envio será conectado ao painel administrativo em uma etapa posterior.</>
+          <>Seus dados serão usados pela equipe para acompanhar seu interesse na formação.</>
         )}
       </p>
+      {!applicationProcessId && <a href="/inscricao" className="inline-flex text-xs font-medium text-blue underline-offset-4 hover:underline">Consultar processos com inscrições abertas →</a>}
     </form>
   )
 }

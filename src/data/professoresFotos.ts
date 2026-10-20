@@ -11,18 +11,21 @@ import rozaliaDelGaudio from '@/img/optimized/professores/Rozalia_Del_Gaudio.jpg
 import sergioAndreucci from '@/img/optimized/professores/Sergio_Andreucci.jpg'
 import suzelFigueiredo from '@/img/optimized/professores/Suzel_Figueiredo.jpg'
 import vaniaBueno from '@/img/optimized/professores/Vania_Bueno.jpg'
-import luizAlberto from '@/img/optimized/professores/Retrato profissional em azul vibrante.jpg'
+
+/** Retratos genéricos — mapeados pelos prints oficiais do Gestcorp */
 import carolinaTerra from '@/img/optimized/professores/Retrato Sorridente em Fundo Azul.jpg'
-import eugenioBucci from '@/img/optimized/professores/Retrato profissional de homem grisalho com óculos dourados.jpg'
-import agathaParaventi from '@/img/optimized/professores/Retrato profissional de mulher sorridente.jpg'
+import agathaParaventi from '@/img/optimized/professores/Retrato profissional com fundo laranja vibrante.jpg'
+import laisCastilho from '@/img/optimized/professores/Retrato profissional de mulher sorridente.jpg'
 import elseLemos from '@/img/optimized/professores/Retrato elegante em fundo laranja vibrante.jpg'
-import laisCastilho from '@/img/optimized/professores/Retrato profissional com fundo laranja vibrante.jpg'
 import claudioCardoso from '@/img/optimized/professores/Retrato corporativo em fundo laranja intenso.jpg'
-import dorinhoBastos from '@/img/optimized/professores/Retrato Corporativo em Fundo Azul Vivo.jpg'
-import flavioHourneaux from '@/img/optimized/professores/Retrato profissional de homem grisalho sorridente.jpg'
+import dorinhoBastos from '@/img/optimized/professores/Retrato profissional em azul vibrante.jpg'
+import luizAlberto from '@/img/optimized/professores/Retrato profissional de homem grisalho sorridente.jpg'
+import josmarAndrade from '@/img/optimized/professores/Josmar_Andrade.jpg'
+import eugenioBucci from '@/img/optimized/professores/Retrato Corporativo em Fundo Azul Vivo.jpg'
 
 /**
- * Retratos do corpo docente — arquivos em `src/img/professores`.
+ * Retratos do corpo docente — alinhados aos prints oficiais do site Gestcorp.
+ * Arquivos nomeados em `src/img/professores`; genéricos “Retrato*” mapeados por semelhança visual.
  */
 export const professoresFotos: Record<string, string> = {
   'valeria-castro': valeriaCastro,
@@ -33,7 +36,7 @@ export const professoresFotos: Record<string, string> = {
   'dorinho-bastos': dorinhoBastos,
   'else-lemos': elseLemos,
   'eugenio-bucci': eugenioBucci,
-  'flavio-hourneaux-junior': flavioHourneaux,
+  'josmar-andrade': josmarAndrade,
   'lais-castilho': laisCastilho,
   'margarida-kunsch': margaridaKunsch,
   'maria-aparecida-ferrari': mariaFerrari,

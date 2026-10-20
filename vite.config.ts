@@ -12,7 +12,8 @@ export default defineConfig({
   },
   server: {
     host: '127.0.0.1',
-    port: 5173,
+    port: 5199,
+    proxy: { '/api': 'http://127.0.0.1:5200' },
     strictPort: true,
     watch: {
       ignored: ['**/src/img/banner-*.png'],

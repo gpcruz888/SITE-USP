@@ -1,7 +1,27 @@
+import { Facebook, Instagram, Linkedin, Mail, MapPin, MessageCircle } from 'lucide-react'
 import { contact, getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
+import { Icon } from '@/components/ui/Icon'
 import { Logo } from '@/components/ui/Logo'
 import logoEcaUsp from '@/img/ECA-USP_Logotipo.pdf-1-1024x226.webp'
 import logoEcaUsp2017 from '@/img/logo_ECA_USP_2017.png'
+
+const socialLinks = [
+  {
+    label: 'LinkedIn',
+    href: contact.social.linkedin,
+    icon: Linkedin,
+  },
+  {
+    label: 'Instagram',
+    href: contact.social.instagram,
+    icon: Instagram,
+  },
+  {
+    label: 'Facebook',
+    href: contact.social.facebook,
+    icon: Facebook,
+  },
+] as const
 
 export function Footer() {
   return (
@@ -24,38 +44,69 @@ export function Footer() {
             <p className="mt-3 max-w-md text-sm leading-relaxed text-cream/55">
               {contact.department}
             </p>
+
+            <div className="mt-7 flex flex-wrap items-center gap-2.5">
+              {socialLinks.map((item) =>
+                item.href ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-cream transition-colors hover:border-orange hover:bg-orange hover:text-blue-deep focus-visible:outline-orange"
+                  >
+                    <Icon icon={item.icon} size={18} strokeWidth={1.75} />
+                  </a>
+                ) : null,
+              )}
+            </div>
           </div>
 
           <div className="lg:col-span-4">
             <h2 className="text-sm font-medium text-cream/50">Contato</h2>
-            <address className="mt-5 not-italic space-y-4 text-sm leading-relaxed text-cream/80">
-              <p>{contact.address}</p>
-              <p>
-                Secretaria do Gestcorp:{' '}
-                {contact.whatsappNumber ? (
+            <address className="mt-5 not-italic space-y-3.5 text-sm leading-relaxed text-cream/80">
+              <p className="flex items-start gap-2.5">
+                <Icon icon={MapPin} size={16} strokeWidth={1.75} className="mt-0.5 shrink-0 text-orange" />
+                <span>{contact.address}</span>
+              </p>
+              {contact.whatsappNumber ? (
+                <p>
                   <a
                     href={getWhatsAppHref()}
                     target={getWhatsAppTarget()}
                     rel="noopener noreferrer"
-                    className="text-white underline decoration-orange/60 underline-offset-4 transition-colors hover:text-orange hover:decoration-orange"
+                    className="inline-flex items-center gap-2.5 text-white no-underline transition-colors hover:text-orange"
                   >
-                    WhatsApp {contact.whatsappNumber}
+                    <Icon icon={MessageCircle} size={16} strokeWidth={1.75} className="shrink-0 text-orange" />
+                    <span>
+                      WhatsApp{' '}
+                      <span className="underline decoration-orange/60 underline-offset-4">
+                        {contact.whatsappNumber}
+                      </span>
+                    </span>
                   </a>
-                ) : (
-                  <span className="text-cream/70">WhatsApp [número oficial]</span>
-                )}{' '}
-                ·{' '}
+                </p>
+              ) : (
+                <p className="flex items-center gap-2.5 text-cream/70">
+                  <Icon icon={MessageCircle} size={16} strokeWidth={1.75} className="shrink-0 text-orange" />
+                  WhatsApp [número oficial]
+                </p>
+              )}
+              <p>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="text-white underline decoration-cream-light/40 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+                  className="inline-flex items-center gap-2.5 text-white no-underline transition-colors hover:text-orange"
                 >
-                  {contact.email}
+                  <Icon icon={Mail} size={16} strokeWidth={1.75} className="shrink-0 text-orange" />
+                  <span className="underline decoration-cream-light/40 underline-offset-4 hover:decoration-orange">
+                    {contact.email}
+                  </span>
                 </a>
               </p>
             </address>
           </div>
 
-          {/* Coluna Links */}
           <div className="lg:col-span-3">
             <h2 className="text-sm font-medium text-cream/55">Links</h2>
             <ul className="mt-5 space-y-2.5 text-sm">
@@ -69,34 +120,21 @@ export function Footer() {
                   ECA-USP
                 </a>
               </li>
-              <li>
-                {contact.social.instagram ? (
-                  <a
-                    href={contact.social.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cream/80 no-underline transition-colors hover:text-white"
-                  >
-                    Instagram
-                  </a>
-                ) : (
-                  <span className="text-cream/40">Instagram [pendente]</span>
-                )}
-              </li>
-              <li>
-                {contact.social.linkedin ? (
-                  <a
-                    href={contact.social.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-cream/80 no-underline transition-colors hover:text-white"
-                  >
-                    LinkedIn
-                  </a>
-                ) : (
-                  <span className="text-cream/40">LinkedIn [pendente]</span>
-                )}
-              </li>
+              {socialLinks.map((item) =>
+                item.href ? (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-cream/80 no-underline transition-colors hover:text-white"
+                    >
+                      <Icon icon={item.icon} size={15} strokeWidth={1.75} />
+                      {item.label}
+                    </a>
+                  </li>
+                ) : null,
+              )}
               <li>
                 {contact.privacyPolicyUrl ? (
                   <a
@@ -128,9 +166,19 @@ export function Footer() {
               {contact.updatedAt ?? '[data da revisão]'}
             </p>
           </div>
+          <p className="mt-5 text-xs text-cream/45">
+            Desenvolvido por{' '}
+            <a
+              href="https://bliainteligencia.com.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cream/70 underline decoration-white/20 underline-offset-4 transition-colors hover:text-orange hover:decoration-orange"
+            >
+              Blia Inteligência
+            </a>
+          </p>
         </div>
       </div>
     </footer>
   )
 }
-

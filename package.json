@@ -4,12 +4,20 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/dev.mjs",
     "build": "tsc -p tsconfig.app.json --noEmit && vite build",
-    "preview": "vite preview",
-    "prepreview": "npm run build"
+    "preview": "APP_URL=http://127.0.0.1:4173 node --env-file-if-exists=.env server/start.mjs",
+    "prepreview": "npm run build",
+    "dev:frontend": "vite",
+    "start": "node --env-file-if-exists=.env server/start.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "admin:invite": "node --env-file-if-exists=.env scripts/admin-invite.mjs",
+    "admin:recover": "node --env-file-if-exists=.env scripts/admin-invite.mjs --recover",
+    "check:deploy": "node scripts/check-deploy.mjs"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "@neondatabase/serverless": "^1.2.0",
     "lucide-react": "^1.59.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -22,5 +30,8 @@
     "tailwindcss": "^4.1.4",
     "typescript": "~5.8.3",
     "vite": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=22.16.0"
   }
 }
