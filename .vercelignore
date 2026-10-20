@@ -1,7 +1,7 @@
 .git
 node_modules
 .vercel
-data
+/data
 .env
 .env.*
 *.log
