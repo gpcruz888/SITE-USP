@@ -15,7 +15,7 @@ export function Logo({ className = '', compact = false, light = false }: LogoPro
         alt="Gestcorp ECA-USP"
         className={[
           'w-auto object-contain transition-opacity duration-200',
-          compact ? 'h-7 md:h-8' : 'h-9 md:h-11',
+          compact ? 'h-8 max-w-[220px]' : 'h-10 max-w-[250px] md:h-12 md:max-w-[340px]',
           light ? 'brightness-0 invert' : '',
         ].filter(Boolean).join(' ')}
       />

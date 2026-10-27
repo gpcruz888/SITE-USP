@@ -1,5 +1,6 @@
 import { GraduationCap, MessagesSquare, Palette, type LucideIcon } from 'lucide-react'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { banners } from '@/data/banners'
 
 const blocos: {
@@ -56,6 +57,7 @@ export function UspEca() {
             loading="lazy"
             decoding="async"
           />
+          <UspSeal />
         </div>
 
         <div className="institution-pillars">

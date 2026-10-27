@@ -1,3 +1,5 @@
+import { UspSeal } from '@/components/ui/UspSeal'
+
 type Variant = 'wide' | 'landscape' | 'tall' | 'square'
 type Treatment = 'default' | 'bleed' | 'offset' | 'round-top'
 
@@ -10,6 +12,7 @@ interface MediaFrameProps {
   className?: string
   tone?: 'cream' | 'blue' | 'warm'
   src?: string
+  seal?: boolean
 }
 
 const variantClass: Record<Variant, string> = {
@@ -41,6 +44,7 @@ export function MediaFrame({
   className = '',
   tone = 'cream',
   src,
+  seal = false,
 }: MediaFrameProps) {
   const hasPhoto = Boolean(src)
 
@@ -71,6 +75,7 @@ export function MediaFrame({
           {mark}
         </span>
       )}
+      {seal ? <UspSeal corner="top-right" /> : null}
       {caption ? (
         <figcaption className="media-frame__caption">
           <span>{caption}</span>

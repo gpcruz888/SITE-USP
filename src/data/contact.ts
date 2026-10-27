@@ -1,7 +1,7 @@
 export const contact = {
   email: 'gestcorp@usp.br',
   whatsappNumber: '5511976135520',
-  whatsappLabel: 'WhatsApp',
+  whatsappLabel: 'WhatsApp:',
   address: 'Av. Prof. Lúcio Martins Rodrigues, 443, Cidade Universitária, São Paulo (SP)',
   department:
     'Departamento de Relações Públicas, Propaganda e Turismo da Escola de Comunicações e Artes da Universidade de São Paulo',

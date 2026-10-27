@@ -31,11 +31,11 @@ export function StickyCta() {
             {turma.status === 'inscricoes_abertas' ? 'Inscrições abertas' : turma.status === 'encerrada' ? 'Inscrições encerradas' : 'Conheça a próxima turma'}
           </p>
           <p className="truncate text-sm font-semibold text-blue-deep md:text-[0.9375rem]">
-            Turma {turma.ano} · {turma.dataInicioLabel}
+            Turma {turma.ano} · {turma.investimentoParcelas ?? turma.dataInicioLabel}
           </p>
         </div>
         <Button href="#turma-2027" size="sm" tabIndex={visible ? 0 : -1}>
-          Quero saber mais
+          Faça sua Matrícula Agora
         </Button>
       </div>
     </div>

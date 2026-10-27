@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/Button'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 import { banners } from '@/data/banners'
 
@@ -8,9 +9,7 @@ export function Hero() {
       <div className="hero-layout">
         <div className="hero-narrative">
           <div className="hero-content">
-            <p className="mb-5 text-xs font-semibold tracking-[0.14em] text-cream/70 uppercase">
-              Gestcorp · ECA-USP
-            </p>
+            <UspSeal inline />
 
             <h1 id="hero-title" className="text-display-lg text-white">
               Não basta comunicar decisões,{' '}
@@ -29,7 +28,7 @@ export function Hero() {
                 rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
                 size="lg"
               >
-                Quero saber como participar
+                Garanta sua Matrícula
               </Button>
               <Button href="#programa" variant="outline-light" size="lg">
                 Conhecer o programa

@@ -21,10 +21,10 @@ export const banners = {
   experiencia: usp3,
   trajetoria: usp7,
   trabalhoFinal: usp9,
-  turma: usp12,
+  turma: usp5,
   encerramento: usp10,
   /** Reserva visual para seções futuras / galeria institucional */
-  galeria: [usp6, usp4, usp5, usp8, usp11] as const,
+  galeria: [usp6, usp4, usp8, usp11, usp12] as const,
 } as const
 
 export const bannerSlots = {

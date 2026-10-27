@@ -1,4 +1,5 @@
 import { InterestForm } from '@/components/forms/InterestForm'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { getTurmaAtiva } from '@/data/turma'
 import { banners } from '@/data/banners'
 
@@ -10,12 +11,6 @@ export function Turma2027() {
     { label: 'Vagas', value: String(turma.vagas) },
     { label: 'Modalidade', value: 'Presencial' },
     { label: 'Duração', value: '2 anos' },
-    {
-      label: 'Investimento',
-      value: turma.investimento ?? 'Valor a confirmar',
-      wide: true,
-      muted: !turma.investimento,
-    },
   ] as const
 
   return (
@@ -25,12 +20,13 @@ export function Turma2027() {
           <img
             src={banners.turma}
             alt=""
-            className="enrollment-photo absolute inset-0 h-full w-full object-cover"
+            className="enrollment-photo absolute inset-0 h-full w-full object-cover object-center"
             loading="lazy"
             decoding="async"
             aria-hidden="true"
           />
           <div className="enrollment-image-fade absolute inset-0" aria-hidden="true" />
+          <UspSeal corner="top-right" />
           <div className="relative flex h-full flex-col justify-end px-6 py-10 sm:px-8 md:p-12 lg:p-14">
             <p className="text-xs font-semibold tracking-[0.14em] text-cream/70 uppercase">
               Turma 2027
@@ -56,16 +52,29 @@ export function Turma2027() {
                 </div>
               ))}
             </dl>
+            <div className="mt-8 max-w-lg rounded-2xl border border-white/15 bg-white/10 px-5 py-5 sm:px-6">
+              <p className="text-xs font-semibold tracking-[0.14em] text-cream/70 uppercase">
+                Investimento
+              </p>
+              <p className="mt-2 text-[1.75rem] leading-none font-bold tracking-[-0.03em] text-white">
+                {turma.investimentoParcelas ?? 'Valor a confirmar'}
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-cream/80">
+                {turma.investimento
+                  ? `Total de ${turma.investimento}. Dois anos de especialização presencial na ECA-USP, no ritmo de uma mensalidade.`
+                  : 'O valor da turma será confirmado pela Secretaria.'}
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="flex flex-col justify-center bg-blue-deep px-6 py-12 sm:px-8 md:px-12 lg:px-14 lg:py-16">
           <div className="mx-auto w-full max-w-md">
             <h3 className="text-2xl font-bold tracking-[-0.03em] text-white md:text-[1.75rem]">
-              Manifeste seu interesse
+              Garanta sua vaga na turma 2027
             </h3>
             <p className="mt-3 mb-8 text-sm leading-relaxed text-cream/70">
-              Deixe seus dados para receber orientações sobre a turma.
+              Informe seus dados. A Secretaria orienta a matrícula e as formas de pagamento.
             </p>
             <div className="rounded-2xl bg-cream-warm p-5 sm:p-6 md:p-8">
               <InterestForm conversion />

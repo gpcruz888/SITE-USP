@@ -113,7 +113,7 @@ export function Header() {
               size="sm"
               className="hidden sm:inline-flex"
             >
-              Quero saber mais
+              Quero me Matricular
             </Button>
 
             <button
@@ -173,7 +173,7 @@ export function Header() {
                 size="lg"
                 onClick={handleNavClick}
               >
-                Quero saber mais
+                Quero me Matricular
               </Button>
             </div>
           </nav>

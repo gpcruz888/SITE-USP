@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { banners } from '@/data/banners'
 import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 
@@ -23,6 +24,7 @@ export function Encerramento() {
         className="closing-image-fade absolute inset-0"
         aria-hidden="true"
       />
+      <UspSeal corner="top-right" />
 
       <div className="relative container-site py-24 md:py-32 lg:py-36">
         <div className="max-w-2xl">
@@ -44,7 +46,7 @@ export function Encerramento() {
               rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
               size="lg"
             >
-              Quero saber como participar
+              Quero me Matricular
             </Button>
             <a
               href="#duvidas"

@@ -14,6 +14,7 @@ export interface Turma {
   diasHorarios: string
   cargaHoraria: string | null
   investimento: string | null
+  investimentoParcelas: string | null
   periodoInscricao: string | null
   status: TurmaStatus
   ativa: boolean
@@ -34,7 +35,8 @@ export const turmas: Turma[] = [
     diasHorarios:
       'segundas e quartas-feiras, das 19h às 22h30, sujeitos à confirmação do calendário',
     cargaHoraria: null, // [após confirmação do registro oficial]
-    investimento: null, // [após confirmação do valor, do parcelamento e de eventuais taxas]
+    investimento: 'R$ 23.280',
+    investimentoParcelas: '24x de R$ 970',
     periodoInscricao: null, // [somente o período oficialmente autorizado]
     status: 'em_breve',
     ativa: true,

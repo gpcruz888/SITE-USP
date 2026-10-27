@@ -249,7 +249,7 @@ export function InterestForm({
 
       <div className="pt-2">
         <Button type="submit" size="lg" disabled={status === 'loading' || status === 'success'} className="w-full">
-          {status === 'loading' ? 'Enviando…' : status === 'success' ? 'Enviado com sucesso' : applicationProcessId ? 'Enviar inscrição' : 'Enviar interesse'}
+          {status === 'loading' ? 'Enviando…' : status === 'success' ? 'Enviado com sucesso' : applicationProcessId ? 'Enviar inscrição' : conversion ? 'Garanta sua Matrícula' : 'Enviar interesse'}
         </Button>
       </div>
 

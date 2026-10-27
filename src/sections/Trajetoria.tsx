@@ -9,11 +9,6 @@ const destaques = [
     value: 'trajetória do Gestcorp',
   },
   {
-    year: '—',
-    label: '[número oficial]',
-    value: 'especialistas formados',
-  },
-  {
     year: '2004',
     label: 'Desde 2004',
     value: 'revista Organicom',
@@ -35,6 +30,7 @@ export function Trajetoria() {
               label="Trajetória do Gestcorp"
               caption="Produção intelectual"
               variant="tall"
+              seal
             />
           </div>
 

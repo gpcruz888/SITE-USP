@@ -82,7 +82,7 @@ export function ProcessoSeletivo() {
             rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
             size="lg"
           >
-            Falar com a Secretaria
+            Faça sua Matrícula Agora
           </Button>
         </div>
       </div>

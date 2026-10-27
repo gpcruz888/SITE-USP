@@ -1,6 +1,7 @@
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { banners } from '@/data/banners'
 
 export function OQueE() {
@@ -40,7 +41,10 @@ export function OQueE() {
           </div>
 
           <div className="course-visual">
-            <div className="course-main-image"><img src={banners.uspEca} alt="Formação Gestcorp na ECA-USP" loading="lazy" decoding="async" /></div>
+            <div className="course-main-image">
+              <img src={banners.uspEca} alt="Formação Gestcorp na ECA-USP" loading="lazy" decoding="async" />
+              <UspSeal />
+            </div>
             <div className="course-image-column">
               <div className="course-year"><p>1999</p><p>Trajetória de formação em Comunicação Organizacional e Relações Públicas</p></div>
               <img src={banners.galeria[0]} alt="" loading="lazy" decoding="async" aria-hidden="true" />

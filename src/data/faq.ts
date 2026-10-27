@@ -36,6 +36,12 @@ export const faqItems: FaqItem[] = [
       'Não. O programa prevê a participação de profissionais graduados em diferentes áreas do conhecimento que tenham interesse na Comunicação Organizacional e nas Relações Públicas.',
   },
   {
+    id: 'investimento',
+    pergunta: 'Quanto custa a especialização?',
+    resposta:
+      'A turma 2027 custa R$ 23.280, em até 24 parcelas de R$ 970. Dois anos de especialização presencial na ECA-USP, no ritmo de uma mensalidade. A Secretaria do Gestcorp informa as formas de pagamento.',
+  },
+  {
     id: 'rotina',
     pergunta: 'Como é a rotina do curso?',
     resposta:

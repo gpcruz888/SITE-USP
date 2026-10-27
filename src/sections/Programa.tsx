@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { banners } from '@/data/banners'
 import { modulos, trabalhoFinal } from '@/data/programa'
 import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
@@ -160,6 +161,7 @@ export function Programa() {
         style={{ backgroundImage: `url(${banners.trabalhoFinal})` }}
       >
         <div className="absolute inset-0 bg-blue-deep/25" aria-hidden="true" />
+        <UspSeal corner="top-right" />
 
         <div className="relative container-site w-full">
           <div className="max-w-xl rounded-t-2xl bg-blue/92 px-7 py-9 text-white backdrop-blur-[2px] sm:px-9 sm:py-10 md:max-w-lg lg:max-w-xl">
@@ -177,7 +179,7 @@ export function Programa() {
                 rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
                 size="lg"
               >
-                Quero saber como participar
+                Garanta sua Matrícula
               </Button>
             </div>
           </div>

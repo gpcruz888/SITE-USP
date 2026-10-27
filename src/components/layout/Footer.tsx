@@ -3,7 +3,6 @@ import { Mail, MapPin, MessageCircle, type LucideIcon, type LucideProps } from '
 import { contact, getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 import { Icon } from '@/components/ui/Icon'
 import { Logo } from '@/components/ui/Logo'
-import logoEcaUsp from '@/img/ECA-USP_Logotipo.pdf-1-1024x226.webp'
 import logoEcaUsp2017 from '@/img/logo_ECA_USP_2017.png'
 
 /** Marcas sociais saíram do lucide-react 1.x; o traço segue o mesmo contrato do Icon. */
@@ -85,14 +84,8 @@ export function Footer() {
       <div className="container-site py-14 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">
-            <div className="mb-7 flex flex-wrap items-center gap-5">
+            <div className="mb-7">
               <Logo light />
-              <div className="h-7 w-px bg-white/15" aria-hidden="true" />
-              <img
-                src={logoEcaUsp}
-                alt="ECA-USP — Escola de Comunicações e Artes da Universidade de São Paulo"
-                className="h-7 w-auto object-contain brightness-0 invert opacity-85 transition-opacity hover:opacity-100"
-              />
             </div>
             <p className="max-w-md text-[0.9375rem] font-medium leading-relaxed text-white">
               {contact.identification}
