@@ -448,7 +448,7 @@ footer { padding-bottom:100px; }
 
 img.usp-seal-inline {
   display: block;
-  width: min(260px, 88%);
+  width: min(168px, 62%);
   height: auto;
   margin: 0 0 1.35rem;
   object-fit: contain;
@@ -457,9 +457,9 @@ img.usp-seal-inline {
 img.usp-seal {
   position: absolute !important;
   z-index: 4;
-  width: min(188px, 42%) !important;
+  width: min(280px, 58%) !important;
   height: auto !important;
-  max-height: 42px !important;
+  max-height: 72px !important;
   inset: auto 14px 14px auto !important;
   object-fit: contain !important;
   object-position: center !important;
@@ -469,6 +469,6 @@ img.usp-seal {
 img.usp-seal.usp-seal--top { inset: 14px 14px auto auto !important; }
 .home-hero img.usp-seal.usp-seal--top { inset: 6.4rem 1.25rem auto auto !important; }
 @media (max-width: 767px) {
-  img.usp-seal { width: min(148px, 54%) !important; max-height: 34px !important; }
+  img.usp-seal { width: min(210px, 70%) !important; max-height: 54px !important; }
   .home-hero img.usp-seal.usp-seal--top { inset: 5.1rem 0.85rem auto auto !important; }
 }
