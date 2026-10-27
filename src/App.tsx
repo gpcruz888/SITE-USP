@@ -12,7 +12,6 @@ import { PensamentoEstrategico } from '@/sections/PensamentoEstrategico'
 import { ExperienciaPresencial } from '@/sections/ExperienciaPresencial'
 import { Programa } from '@/sections/Programa'
 import { CorpoDocente } from '@/sections/CorpoDocente'
-import { VideoPlaceholder } from '@/sections/VideoPlaceholder'
 import { Trajetoria } from '@/sections/Trajetoria'
 import { Turma2027 } from '@/sections/Turma2027'
 import { ProcessoSeletivo } from '@/sections/ProcessoSeletivo'
@@ -48,7 +47,7 @@ function PublicHome() {
         <ExperienciaPresencial />
         <Programa />
         <CorpoDocente />
-        <VideoPlaceholder />
+        {/* VideoPlaceholder volta quando o vídeo institucional estiver pronto. */}
         <Trajetoria />
         <Turma2027 />
         <ProcessoSeletivo />

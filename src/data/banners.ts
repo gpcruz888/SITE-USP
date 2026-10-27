@@ -19,8 +19,8 @@ export const banners = {
   hero: usp1,
   uspEca: usp2,
   experiencia: usp3,
-  trajetoria: usp7,
-  trabalhoFinal: usp9,
+  trajetoria: usp9,
+  trabalhoFinal: usp7,
   turma: usp5,
   encerramento: usp10,
   /** Reserva visual para seções futuras / galeria institucional */
