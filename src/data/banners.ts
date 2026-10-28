@@ -4,7 +4,6 @@ import usp3 from '@/img/optimized/USP_3.jpg'
 import usp4 from '@/img/optimized/USP_4.jpg'
 import usp5 from '@/img/optimized/USP_5.jpg'
 import usp6 from '@/img/optimized/USP_6.jpg'
-import usp7 from '@/img/optimized/USP_7.jpg'
 import usp8 from '@/img/optimized/USP_8.jpg'
 import usp9 from '@/img/optimized/USP_9.jpg'
 import usp10 from '@/img/optimized/USP_10.jpg'
@@ -21,7 +20,7 @@ export const banners = {
   uspEca: usp2,
   experiencia: usp3,
   trajetoria: usp9,
-  trabalhoFinal: usp7,
+  trabalhoFinal: usp11,
   turma: turmaForm,
   encerramento: usp10,
   /** Reserva visual para seções futuras / galeria institucional */

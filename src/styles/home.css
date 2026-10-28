@@ -67,7 +67,7 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .institution-section > .container-site > div:first-child { align-items:start; }
 .institution-section > .container-site > div:first-child > p { font-size:16px; line-height:1.8; padding-top:34px; }
 .institution-panorama { position:relative; margin-top:36px; border-radius:var(--home-radius); overflow:hidden; }
-.institution-panorama img { width:100%; height:280px; object-fit:cover; object-position:center 48%; }
+.institution-panorama img { width:100%; height:280px; object-fit:cover; object-position:center center; }
 .institution-pillars { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin-top:30px; }
 .institution-pillars .soft-card { padding:12px 30px 0; border:0; border-left:1px solid #cedaeb; border-radius:0; box-shadow:none; background:transparent; overflow:visible; }
 .institution-pillars .soft-card:first-child { padding-left:0; border-left:0; }
@@ -158,10 +158,10 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .history-section > .container-site > .grid > div:last-child > div:last-child > div { background:transparent; border-radius:0; padding:0; }
 .history-section h3 { font-size:19px; }
 .history-section div:last-child p { font-size:14px; }
-.enrollment-section { background:var(--color-blue-deep); }
-.enrollment-section > .grid { max-width:1320px; margin-inline:auto; grid-template-columns:1fr 1fr; }
-.enrollment-section > .grid > div:first-child { border-radius:0; margin:40px 0 40px 40px; overflow:hidden; position:relative; }
-.enrollment-section > .grid > div:first-child > img:not(.usp-seal) { opacity:1; object-position:center 30%; }
+.enrollment-section { background:var(--color-cream-warm); }
+.enrollment-section > .grid { max-width:none; margin-inline:0; grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr); }
+.enrollment-section > .grid > div:first-child { border-radius:0; margin:0; min-height:0; overflow:hidden; position:relative; }
+.enrollment-section > .grid > div:first-child > img:not(.usp-seal) { opacity:1; object-position:center center; }
 .enrollment-section > .grid > div:first-child > div:last-child { padding:45px; min-height:100%; }
 .enrollment-section h2 { font-size:clamp(31px,3.4vw,46px); line-height:1.15; }
 .enrollment-section dl { margin-top:38px; gap:25px; }
@@ -170,7 +170,7 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .enrollment-section > .grid > div:last-child { padding:65px 45px; }
 .enrollment-section > .grid > div:last-child > div { max-width:450px; }
 .enrollment-section h3 { font-size:28px; }
-.enrollment-section > .grid > div:last-child > div > p { font-size:12px; color:#c1cee1; }
+.enrollment-section > .grid > div:last-child > div > p { font-size:12px; color:var(--color-graphite-muted); }
 .enrollment-section form { font-size:14px; }
 .enrollment-section form label { font-size:12px; }
 .enrollment-section form input:not([type=checkbox]), .enrollment-section form select { border-radius:7px; font-size:14px; min-height:46px; padding-block:11px; }
@@ -231,7 +231,7 @@ footer { padding-bottom:100px; }
   .faculty-grid h3 { font-size:17px; }
   .faculty-grid a { font-size:12px; }
   .history-section .media-frame { aspect-ratio:2.2; }
-  .enrollment-section > .grid > div:first-child { margin:30px 0 30px 25px; }
+  .enrollment-section > .grid > div:first-child { margin:0; }
   .enrollment-section > .grid > div:first-child > div:last-child { padding:30px; }
   .enrollment-section > .grid > div:last-child { padding:45px 30px; }
   .enrollment-section > .grid > div:last-child > div > div:last-child { padding:24px; }
@@ -302,7 +302,7 @@ footer { padding-bottom:100px; }
   .course-image-column > img { height:160px; border-radius:10px; }
   .institution-section > .container-site > div:first-child > p { font-size:15px; }
   .institution-panorama { border-radius:12px; margin-top:28px; }
-  .institution-panorama img { height:210px; object-position:63% center; }
+  .institution-panorama img { height:210px; object-position:center center; }
   .audience-section .prose-editorial { font-size:15px; }
   .audience-section button[aria-expanded] { padding:21px 10px; gap:12px; }
   .audience-section button[aria-expanded] > span:nth-child(2) { font-size:17px; line-height:1.5; }

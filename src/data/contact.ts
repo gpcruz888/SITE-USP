@@ -14,7 +14,7 @@ export const contact = {
     facebook: 'https://www.facebook.com/gestcorpecausp/',
   },
   ecaUrl: 'https://www.eca.usp.br/',
-  updatedAt: null as string | null, // [data da revisão] — pendente
+  updatedAt: '27 de outubro de 2026',
 } as const
 
 /** Destino configurável dos CTAs de WhatsApp. Sem número oficial, permanece âncora para o formulário. */
