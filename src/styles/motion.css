@@ -1,35 +1,37 @@
-/* Entrada na rolagem e hovers. Só transform e opacity. O conteúdo acima da dobra não recebe .rise. */
+/* Entrada na rolagem. Só opacity e transform, e só depois que o script marca o elemento. */
 
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes motion-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes motion-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes motion-left {
+  from { opacity: 0; transform: translateX(-18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes motion-right {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes motion-scale {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
 }
 
-@keyframes menu-drop {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+.motion-up:not(.is-in) { opacity: 0; transform: translateY(20px); }
+.motion-fade:not(.is-in) { opacity: 0; }
+.motion-left:not(.is-in) { opacity: 0; transform: translateX(-18px); }
+.motion-right:not(.is-in) { opacity: 0; transform: translateX(18px); }
+.motion-scale:not(.is-in) { opacity: 0; transform: scale(0.97); }
 
-.rise:not(.is-in) {
-  opacity: 0;
-  transform: translateY(14px);
-}
-
-.rise.is-in {
-  animation: rise-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
+.motion-up.is-in { animation: motion-up 0.56s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.motion-fade.is-in { animation: motion-fade 0.56s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.motion-left.is-in { animation: motion-left 0.56s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.motion-right.is-in { animation: motion-right 0.56s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.motion-scale.is-in { animation: motion-scale 0.56s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 .site-button:not(.site-button--text) {
   transition:
@@ -153,8 +155,16 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rise,
-  .rise.is-in {
+  .motion-up,
+  .motion-fade,
+  .motion-left,
+  .motion-right,
+  .motion-scale,
+  .motion-up.is-in,
+  .motion-fade.is-in,
+  .motion-left.is-in,
+  .motion-right.is-in,
+  .motion-scale.is-in {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;

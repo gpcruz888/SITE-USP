@@ -10,6 +10,7 @@ import usp10 from '@/img/optimized/USP_10.jpg'
 import usp11 from '@/img/optimized/USP_11.jpg'
 import usp12 from '@/img/optimized/USP_12.jpg'
 import turmaForm from '@/img/optimized/turma-form.jpg'
+import trabalhoFinalFoto from '@/img/optimized/trabalho-final.jpg'
 
 /**
  * Fotografias das seções principais da home.
@@ -20,7 +21,7 @@ export const banners = {
   uspEca: usp2,
   experiencia: usp3,
   trajetoria: usp9,
-  trabalhoFinal: usp11,
+  trabalhoFinal: trabalhoFinalFoto,
   turma: turmaForm,
   encerramento: usp10,
   /** Reserva visual para seções futuras / galeria institucional */

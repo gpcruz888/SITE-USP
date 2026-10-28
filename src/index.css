@@ -624,18 +624,11 @@
     }
   }
 
-  /* Reveal on scroll */
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition:
-      opacity 0.5s ease,
-      transform 0.5s ease;
-  }
-
+  /* O surgimento na rolagem entra só depois que o script marca o elemento. */
+  .reveal,
   .reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 
   /* Draw SVG stroke */

@@ -41,7 +41,7 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .hero-photo { position:relative; overflow:hidden; min-height:100%; }
 .hero-photo img { object-position:62% center; animation:none; transform:none; }
 .hero-photo > div { background:linear-gradient(90deg,#11264b55,transparent 35%); }
-.hero-bridge { position:relative; z-index:10; margin-top:-40px; margin-bottom:0; background:#fff; }
+.hero-bridge { position:relative; z-index:20; margin-top:-4.25rem; margin-bottom:-4.25rem; background:transparent; }
 .hero-stat-panel { background:#fff; border-radius:12px; box-shadow:0 16px 44px #11264b0d; border:1px solid var(--home-rule); }
 .hero-stat-inner { padding:27px 30px; }
 .hero-stat-inner dl { grid-template-columns:1.35fr 1.25fr .75fr .75fr; gap:0; }
@@ -122,7 +122,7 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .discipline-tile:hover { background:#f7faff; }
 .discipline-tile h4 { font-size:14px; line-height:1.5; }
 .discipline-tile p { font-size:12px; margin-top:7px; }
-.trabalho-final-band { margin-top:64px; min-height:370px; background-attachment:scroll; background-position:center 40%; align-items:center; padding:45px 0; }
+.trabalho-final-band { margin-top:64px; min-height:430px; background-attachment:scroll; background-position:center center; align-items:center; padding:52px 0; }
 .trabalho-final-band > .absolute { background:linear-gradient(90deg,#0b142033,transparent 68%); }
 .trabalho-final-band .container-site > div { max-width:620px; padding:30px 34px; border-radius:12px; border:0; background:#11264bf2; backdrop-filter:none; }
 .trabalho-final-band h3 { font-size:28px; }
@@ -159,10 +159,10 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .history-section h3 { font-size:19px; }
 .history-section div:last-child p { font-size:14px; }
 .enrollment-section { background:var(--color-blue-deep); }
-.enrollment-section > .grid { max-width:none; margin-inline:0; grid-template-columns:minmax(0,1.2fr) minmax(0,0.8fr); }
-.enrollment-section > .grid > div:first-child { border-radius:0; margin:0; min-height:0; overflow:hidden; position:relative; }
-.enrollment-section > .grid > div:first-child > img:not(.usp-seal) { opacity:1; object-position:center center; }
-.enrollment-section > .grid > div:first-child > div:last-child { padding:45px; min-height:100%; }
+.enrollment-section > .grid { max-width:1320px; margin-inline:auto; grid-template-columns:1fr 1fr; }
+.enrollment-section > .grid > div:first-child { border-radius:0; margin:40px 0 40px 40px; overflow:hidden; position:relative; }
+.enrollment-section > .grid > div:first-child > img:not(.usp-seal) { opacity:1; object-position:center 30%; }
+.enrollment-section > .grid > div:first-child > div:last-child { padding:45px 45px 72px; min-height:100%; }
 .enrollment-section h2 { font-size:clamp(31px,3.4vw,46px); line-height:1.15; }
 .enrollment-section dl { margin-top:38px; gap:25px; }
 .enrollment-section dt { font-size:11px; color:#b8c9e3; }
@@ -231,7 +231,7 @@ footer { padding-bottom:100px; }
   .faculty-grid h3 { font-size:17px; }
   .faculty-grid a { font-size:12px; }
   .history-section .media-frame { aspect-ratio:2.2; }
-  .enrollment-section > .grid > div:first-child { margin:0; }
+  .enrollment-section > .grid > div:first-child { margin:30px 0 30px 25px; }
   .enrollment-section > .grid > div:first-child > div:last-child { padding:30px; }
   .enrollment-section > .grid > div:last-child { padding:45px 30px; }
   .enrollment-section > .grid > div:last-child > div > div:last-child { padding:24px; }
@@ -247,7 +247,7 @@ footer { padding-bottom:100px; }
   .hero-photo { min-height:340px; height:340px; }
   .hero-photo img { object-position:60% 44%; }
   .hero-photo > div { background:linear-gradient(180deg,#11264b3d,transparent 45%); }
-  .hero-bridge { margin-top:-24px; }
+  .hero-bridge { margin-top:-3.25rem; margin-bottom:-3.25rem; }
   .course-layout { grid-template-columns:1fr; }
   .course-description { max-width:600px; }
   .course-visual { width:100%; max-width:630px; gap:18px; grid-template-columns:1.3fr 1fr; }
@@ -267,8 +267,8 @@ footer { padding-bottom:100px; }
   .module-tab { padding:18px 16px; }
   .module-panel { padding:28px 24px; }
   .enrollment-section > .grid { grid-template-columns:1fr; }
-  .enrollment-section > .grid > div:first-child { min-height:440px; margin:25px 25px 0; border-radius:12px; }
-  .enrollment-section > .grid > div:first-child > div:last-child { padding:35px; justify-content:center; }
+  .enrollment-section > .grid > div:first-child { min-height:440px; margin:25px; border-radius:12px; }
+  .enrollment-section > .grid > div:first-child > div:last-child { padding:35px 35px 64px; justify-content:center; }
   .enrollment-section > .grid > div:last-child { padding:40px 25px; }
   .enrollment-section > .grid > div:last-child > div { max-width:none; }
   .enrollment-section > .grid > div:last-child > div > div:last-child { padding:30px; }
@@ -330,7 +330,7 @@ footer { padding-bottom:100px; }
   .module-panel ul[aria-label] li { font-size:10px; padding:4px 7px; }
   .discipline-tile { padding:17px 0; gap:12px; }
   .discipline-tile h4 { font-size:14px; }
-  .trabalho-final-band { min-height:0; padding:30px 0; margin-top:45px; }
+  .trabalho-final-band { min-height:300px; padding:36px 0; margin-top:45px; }
   .trabalho-final-band .container-site > div { padding:27px 24px; }
   .trabalho-final-band h3 { font-size:25px; }
   .trabalho-final-band p { font-size:14px; }
@@ -346,8 +346,8 @@ footer { padding-bottom:100px; }
   .history-section .media-frame { aspect-ratio:1.4; }
   .history-section > .container-site > .grid > div:last-child > p { font-size:15px; }
   .history-section > .container-site > .grid > div:last-child > div:last-child { gap:28px; }
-  .enrollment-section > .grid > div:first-child { margin:20px 20px 0; min-height:0; }
-  .enrollment-section > .grid > div:first-child > div:last-child { padding:30px 23px; }
+  .enrollment-section > .grid > div:first-child { margin:20px; min-height:0; }
+  .enrollment-section > .grid > div:first-child > div:last-child { padding:32px 23px 56px; }
   .enrollment-section h2 { font-size:32px; }
   .enrollment-section dl { gap:24px 20px; margin-top:30px; }
   .enrollment-section dd { font-size:16px; }
@@ -419,7 +419,7 @@ footer { padding-bottom:100px; }
   .closing-section > .container-site { padding-top:230px; }
   .closing-section > img { object-position:62% top; }
   .closing-image-fade { background:linear-gradient(180deg,#0b142000 0%,#0b142026 15%,#0b1420bf 32%,#0b1420ed 52%,#0b1420f5 100%); }
-  .enrollment-section > .grid > div:first-child > div:last-child { padding-top:235px; }
+  .enrollment-section > .grid > div:first-child > div:last-child { padding-top:235px; padding-bottom:56px; }
   .enrollment-image-fade { background:linear-gradient(180deg,#0b142000 0%,#0b142000 18%,#0b142033 25%,#0b1420b3 32%,#0b1420eb 50%,#0b1420f5 100%); }
 }
 

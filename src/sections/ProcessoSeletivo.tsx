@@ -82,6 +82,8 @@ export function ProcessoSeletivo() {
             href={getWhatsAppHref()}
             target={getWhatsAppTarget()}
             rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+            data-macrm-wa-btn=""
+            data-location="processo"
             size="lg"
           >
             Faça sua Matrícula Agora

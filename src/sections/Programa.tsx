@@ -178,6 +178,8 @@ export function Programa() {
                 href={getWhatsAppHref()}
                 target={getWhatsAppTarget()}
                 rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+                data-macrm-wa-btn=""
+                data-location="trabalho"
                 size="lg"
               >
                 Garanta sua Matrícula

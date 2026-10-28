@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { WhatsAppFab } from '@/components/layout/WhatsAppFab'
 
 export function PoliticaPrivacidade() {
   useEffect(() => {
@@ -198,7 +197,6 @@ export function PoliticaPrivacidade() {
           </p>
         </article>
       </main>
-      <WhatsAppFab />
       <Footer />
     </>
   )

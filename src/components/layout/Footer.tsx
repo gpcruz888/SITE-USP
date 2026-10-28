@@ -125,6 +125,8 @@ export function Footer() {
                     href={getWhatsAppHref()}
                     target={getWhatsAppTarget()}
                     rel="noopener noreferrer"
+                    data-macrm-wa-btn=""
+                    data-location="rodape"
                     className="inline-flex items-center gap-2.5 text-white no-underline transition-colors hover:text-orange"
                   >
                     <Icon icon={MessageCircle} size={16} strokeWidth={1.75} className="shrink-0 text-orange" />

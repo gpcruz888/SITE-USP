@@ -1,7 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
-import { UspSeal } from '@/components/ui/UspSeal'
 import { banners } from '@/data/banners'
 
 export function OQueE() {
@@ -11,7 +10,6 @@ export function OQueE() {
       className="course-overview relative z-0 bg-cream-warm"
       aria-labelledby="o-curso-title"
     >
-      <UspSeal />
       <div className="container-site">
         <div className="course-layout">
           <div className="course-description">

@@ -44,6 +44,8 @@ export function Encerramento() {
               href={getWhatsAppHref()}
               target={getWhatsAppTarget()}
               rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+              data-macrm-wa-btn=""
+              data-location="encerramento"
               size="lg"
             >
               Quero me Matricular

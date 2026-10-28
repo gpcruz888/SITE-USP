@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { WhatsAppFab } from '@/components/layout/WhatsAppFab'
 import { StickyCta } from '@/components/layout/StickyCta'
 import { HeroHighlight } from '@/components/layout/HeroHighlight'
 import { Hero } from '@/sections/Hero'
@@ -57,7 +56,6 @@ function PublicHome() {
         <Encerramento />
       </main>
       <StickyCta />
-      <WhatsAppFab />
       <Footer />
     </>
   )

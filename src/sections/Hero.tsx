@@ -26,6 +26,8 @@ export function Hero() {
                 href={getWhatsAppHref()}
                 target={getWhatsAppTarget()}
                 rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+                data-macrm-wa-btn=""
+                data-location="hero"
                 size="lg"
               >
                 Garanta sua Matrícula

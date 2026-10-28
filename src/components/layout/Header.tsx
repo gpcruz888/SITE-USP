@@ -111,6 +111,8 @@ export function Header({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' 
               href={getWhatsAppHref()}
               target={getWhatsAppTarget()}
               rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+              data-macrm-wa-btn=""
+              data-location="topo"
               size="sm"
               className="hidden sm:inline-flex"
             >
@@ -170,6 +172,8 @@ export function Header({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' 
                 href={getWhatsAppHref()}
                 target={getWhatsAppTarget()}
                 rel={getWhatsAppTarget() ? 'noopener noreferrer' : undefined}
+                data-macrm-wa-btn=""
+                data-location="menu"
                 className="w-full justify-center"
                 size="lg"
                 onClick={handleNavClick}

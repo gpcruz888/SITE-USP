@@ -1,5 +1,4 @@
-import { createElement, type CSSProperties, type ReactNode } from 'react'
-import { useInView } from '@/hooks/useInView'
+import { createElement, type ReactNode } from 'react'
 
 interface RevealProps {
   children: ReactNode
@@ -8,24 +7,7 @@ interface RevealProps {
   as?: 'div' | 'li' | 'span' | 'article'
 }
 
-export function Reveal({
-  children,
-  className = '',
-  delayMs = 0,
-  as = 'div',
-}: RevealProps) {
-  const { ref, inView } = useInView<HTMLElement>()
-  const style: CSSProperties | undefined = delayMs
-    ? { transitionDelay: `${delayMs}ms` }
-    : undefined
-
-  return createElement(
-    as,
-    {
-      ref,
-      className: ['reveal', inView ? 'is-visible' : '', className].filter(Boolean).join(' '),
-      style,
-    },
-    children,
-  )
+/** Mantém a marcação das listas. A entrada na rolagem fica no script global, para o conteúdo continuar visível se o JavaScript falhar. */
+export function Reveal({ children, className = '', as = 'div' }: RevealProps) {
+  return createElement(as, { className }, children)
 }
