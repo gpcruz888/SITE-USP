@@ -11,6 +11,7 @@ import rozaliaDelGaudio from '@/img/optimized/professores/Rozalia_Del_Gaudio.jpg
 import sergioAndreucci from '@/img/optimized/professores/Sergio_Andreucci.jpg'
 import suzelFigueiredo from '@/img/optimized/professores/Suzel_Figueiredo.jpg'
 import vaniaBueno from '@/img/optimized/professores/Vania_Bueno.jpg'
+import flavioHourneaux from '@/img/optimized/professores/Flavio_Hourneaux_Junior.png'
 
 /** Retratos genéricos — mapeados pelos prints oficiais do Gestcorp */
 import carolinaTerra from '@/img/optimized/professores/Retrato Sorridente em Fundo Azul.jpg'
@@ -36,6 +37,7 @@ export const professoresFotos: Record<string, string> = {
   'dorinho-bastos': dorinhoBastos,
   'else-lemos': elseLemos,
   'eugenio-bucci': eugenioBucci,
+  'flavio-hourneaux-junior': flavioHourneaux,
   'josmar-andrade': josmarAndrade,
   'lais-castilho': laisCastilho,
   'margarida-kunsch': margaridaKunsch,
