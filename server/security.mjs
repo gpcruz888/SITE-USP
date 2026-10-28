@@ -27,6 +27,6 @@ export function securityHeaders(res, production) {
   res.setHeader('Cache-Control','no-store')
   if (production) {
     res.setHeader('Strict-Transport-Security','max-age=31536000; includeSubDomains')
-    res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'")
+    res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self' https://forms.maisalunoscrm.com.br; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://www.maisalunoscrm.app.br https://forms.maisalunoscrm.com.br; frame-src https://forms.maisalunoscrm.com.br; frame-ancestors 'none'; form-action 'self' https://forms.maisalunoscrm.com.br; base-uri 'self'; object-src 'none'")
   }
 }
