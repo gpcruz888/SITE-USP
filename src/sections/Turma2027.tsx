@@ -66,15 +66,15 @@ export function Turma2027() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center bg-cream-warm px-6 py-12 sm:px-8 md:px-12 lg:px-14 lg:py-16">
+        <div className="flex flex-col justify-center bg-blue-deep px-6 py-12 sm:px-8 md:px-12 lg:px-14 lg:py-16">
           <div className="mx-auto w-full max-w-md">
-            <h3 className="text-2xl font-bold tracking-[-0.03em] text-blue-deep md:text-[1.75rem]">
+            <h3 className="text-2xl font-bold tracking-[-0.03em] text-white md:text-[1.75rem]">
               Garanta sua vaga na turma 2027
             </h3>
-            <p className="mt-3 mb-8 text-sm leading-relaxed text-graphite-muted">
+            <p className="mt-3 mb-8 text-sm leading-relaxed text-cream/70">
               Informe seus dados. A Secretaria orienta a matrícula e as formas de pagamento.
             </p>
-            <div className="rounded-2xl border border-border bg-cream-warm p-5 sm:p-6 md:p-8">
+            <div className="rounded-2xl bg-cream-warm p-5 sm:p-6 md:p-8">
               <InterestForm conversion />
             </div>
           </div>
