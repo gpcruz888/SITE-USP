@@ -1,5 +1,6 @@
 import { MapPin, Clock, Users, Building2 } from 'lucide-react'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { Reveal } from '@/components/ui/Reveal'
 
 const infos = [
@@ -31,9 +32,10 @@ export function ExperienciaPresencial() {
   return (
     <section
       id="experiencia"
-      className="experience-section bg-cream-light py-20 md:py-28"
+      className="experience-section relative bg-cream-light py-20 md:py-28"
       aria-labelledby="experiencia-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">

@@ -10,6 +10,7 @@ import usp9 from '@/img/optimized/USP_9.jpg'
 import usp10 from '@/img/optimized/USP_10.jpg'
 import usp11 from '@/img/optimized/USP_11.jpg'
 import usp12 from '@/img/optimized/USP_12.jpg'
+import turmaForm from '@/img/optimized/turma-form.jpg'
 
 /**
  * Fotografias das seções principais da home.
@@ -21,10 +22,10 @@ export const banners = {
   experiencia: usp3,
   trajetoria: usp9,
   trabalhoFinal: usp7,
-  turma: usp5,
+  turma: turmaForm,
   encerramento: usp10,
   /** Reserva visual para seções futuras / galeria institucional */
-  galeria: [usp6, usp4, usp8, usp11, usp12] as const,
+  galeria: [usp6, usp4, usp5, usp8, usp11, usp12] as const,
 } as const
 
 export const bannerSlots = {

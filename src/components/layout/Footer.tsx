@@ -3,6 +3,7 @@ import { Mail, MapPin, MessageCircle, type LucideIcon, type LucideProps } from '
 import { contact, getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 import { Icon } from '@/components/ui/Icon'
 import { Logo } from '@/components/ui/Logo'
+import { UspSeal } from '@/components/ui/UspSeal'
 import logoEcaUsp2017 from '@/img/logo_ECA_USP_2017.png'
 
 /** Marcas sociais saíram do lucide-react 1.x; o traço segue o mesmo contrato do Icon. */
@@ -80,7 +81,8 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-blue-deep pb-24 text-cream md:pb-28">
+    <footer className="relative border-t border-white/10 bg-blue-deep pb-24 text-cream md:pb-28">
+      <UspSeal tone="dark" />
       <div className="container-site py-14 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-5">

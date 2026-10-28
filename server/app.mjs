@@ -2,8 +2,15 @@ import { randomUUID } from 'node:crypto'
 import { getDatabase } from './database.mjs'
 import { hash, token, passwordHash, verifyPassword, equal, securityHeaders } from './security.mjs'
 import { HttpError, requireValue, text, email, person, processValues, statuses, choice, date, password, loginPassword, pagination } from './validation.mjs'
+import { crmPayload, submitCrm } from './crm.mjs'
 
-const CONSENT='Autorizo o Gestcorp ECA-USP a tratar meus dados para contato sobre a especialização e turmas de interesse, conforme a legislação aplicável.'
+const CONSENT='Li e estou ciente da Política de Privacidade do Gestcorp ECA-USP.'
+function consentRecord(body) {
+  const parts=[CONSENT]
+  if(body.comunicacoes===true) parts.push('Aceito receber do Gestcorp ECA-USP informações sobre turmas, eventos e Masterclasses por e-mail e WhatsApp.')
+  if(body.imagem===true) parts.push('Autorizo o uso da minha imagem em fotos e vídeos do evento, para divulgação institucional do Gestcorp ECA-USP.')
+  return parts.join(' ')
+}
 const now = () => new Date().toISOString()
 const history = (type,id,action,actor='Formulário público') => ['INSERT INTO history(id,entity_type,entity_id,action,actor,created_at) VALUES($1,$2,$3,$4,$5,$6)',[randomUUID(),type,id,action,actor,now()]]
 const json = (res,status,value) => { res.statusCode=status; res.setHeader('Content-Type','application/json; charset=utf-8'); res.end(JSON.stringify(value)) }
@@ -51,7 +58,7 @@ function csv(rows,kind) {
   return '\uFEFF'+[labels,...rows.map(row=>columns.map(k=>row[k]))].map(row=>row.map(escape).join(';')).join('\r\n')
 }
 
-export function createHandler({ database, appUrl=process.env.APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://127.0.0.1:5199'), production=process.env.NODE_ENV==='production' || !!process.env.VERCEL }={}) {
+export function createHandler({ database, appUrl=process.env.APP_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://127.0.0.1:5199'), production=process.env.NODE_ENV==='production' || !!process.env.VERCEL, crm=submitCrm }={}) {
   const cookieName=production?'__Host-gestcorp_session':'gestcorp_session'
   const cookie=(value,max=28800)=>`${cookieName}=${value}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${max}${production?'; Secure':''}`
   return async function handler(req,res) {
@@ -84,7 +91,7 @@ export function createHandler({ database, appUrl=process.env.APP_URL || (process
           const existing=await one(db,'SELECT id FROM interests WHERE email=$1',[values.email])
           const id=existing?.id || randomUUID(), timestamp=now(), commands=[]
           if(!existing) {
-            commands.push(['INSERT INTO interests(id,name,email,phone,cohort,consent_at,consent_text,source,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$6,$6) ON CONFLICT(email) DO NOTHING',[id,values.name,values.email,values.phone,values.cohort,timestamp,CONSENT,isApplication?'inscricao':'home']])
+            commands.push(['INSERT INTO interests(id,name,email,phone,cohort,consent_at,consent_text,source,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$6,$6) ON CONFLICT(email) DO NOTHING',[id,values.name,values.email,values.phone,values.cohort,timestamp,consentRecord(input),isApplication?'inscricao':'home']])
             commands.push(['INSERT INTO history(id,entity_type,entity_id,action,actor,created_at) SELECT $1,\'interests\',id,\'Interesse cadastrado; consentimento registrado.\',\'Formulário público\',$2 FROM interests WHERE id=$3',[randomUUID(),timestamp,id]])
           }
           if(process) {
@@ -93,6 +100,12 @@ export function createHandler({ database, appUrl=process.env.APP_URL || (process
             commands.push(['INSERT INTO history(id,entity_type,entity_id,action,actor,created_at) SELECT $1,\'applications\',id,\'Inscrição recebida pelo site.\',\'Formulário público\',$2 FROM applications WHERE id=$3',[randomUUID(),timestamp,appId]])
           }
           if(commands.length) await db.batch(commands)
+          const source=isApplication?'inscricao':'home'
+          const forwarded=await crm(crmPayload(input,values,source))
+          if(!forwarded.skipped) {
+            const [sql,args]=history('interests',id,forwarded.ok?'Lead enviado ao CRM Mais Alunos.':'Falha ao enviar o lead ao CRM Mais Alunos.')
+            await db.query(sql,args)
+          }
           return json(res,201,{message:isApplication?'Solicitação recebida. A equipe acompanhará sua inscrição.':'Interesse recebido. A equipe entrará em contato.'})
         }
         throw new HttpError(404,'Recurso não encontrado.')

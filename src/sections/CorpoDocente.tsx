@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { docentes } from '@/data/docentes'
 import { professoresFotos } from '@/data/professoresFotos'
 
@@ -24,9 +25,10 @@ export function CorpoDocente() {
   return (
     <section
       id="professores"
-      className="faculty-section bg-blue-deep py-20 text-white md:py-28"
+      className="faculty-section relative bg-blue-deep py-20 text-white md:py-28"
       aria-labelledby="professores-title"
     >
+      <UspSeal tone="dark" />
       <div className="container-site">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-4">

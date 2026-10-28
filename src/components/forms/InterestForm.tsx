@@ -11,6 +11,8 @@ interface FormValues {
   whatsapp: string
   turmaId: string
   consentimento: boolean
+  comunicacoes: boolean
+  imagem: boolean
 }
 
 interface FormErrors {
@@ -40,7 +42,7 @@ function validate(values: FormValues): FormErrors {
     errors.turmaId = 'Selecione a turma de interesse.'
   }
   if (!values.consentimento) {
-    errors.consentimento = 'É necessário consentir com o tratamento dos dados.'
+    errors.consentimento = 'Confirme que você leu a Política de Privacidade.'
   }
 
   return errors
@@ -50,10 +52,12 @@ export function InterestForm({
   className = '',
   conversion = false,
   applicationProcessId,
+  masterclass = false,
 }: {
   className?: string
   conversion?: boolean
   applicationProcessId?: string
+  masterclass?: boolean
 }) {
   const turmaAtiva = getTurmaAtiva()
   const [values, setValues] = useState<FormValues>({
@@ -62,6 +66,8 @@ export function InterestForm({
     whatsapp: '',
     turmaId: turmaAtiva.id,
     consentimento: false,
+    comunicacoes: false,
+    imagem: false,
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [status, setStatus] = useState<FormStatus>('idle')
@@ -234,10 +240,18 @@ export function InterestForm({
             onChange={(e) => updateField('consentimento', e.target.checked)}
             onBlur={() => handleBlur('consentimento')}
             aria-invalid={touched.consentimento && !!errors.consentimento}
+            aria-required="true"
           />
           <span className="min-w-0 text-pretty">
-            Autorizo o Gestcorp ECA-USP a tratar meus dados para contato sobre a especialização e
-            turmas de interesse, conforme a legislação aplicável.
+            Li e estou ciente da{' '}
+            <a
+              href="/politica-de-privacidade"
+              className="underline underline-offset-2"
+              onClick={(event) => event.stopPropagation()}
+            >
+              Política de Privacidade
+            </a>{' '}
+            do Gestcorp ECA-USP.*
           </span>
         </label>
         {touched.consentimento && errors.consentimento && (
@@ -246,6 +260,49 @@ export function InterestForm({
           </p>
         )}
       </div>
+
+      <div>
+        <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed text-graphite-muted">
+          <input
+            type="checkbox"
+            name="comunicacoes"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded-none accent-blue"
+            checked={values.comunicacoes}
+            onChange={(e) => updateField('comunicacoes', e.target.checked)}
+          />
+          <span className="min-w-0 text-pretty">
+            Aceito receber do Gestcorp ECA-USP informações sobre turmas, eventos e Masterclasses por
+            e-mail e WhatsApp.
+          </span>
+        </label>
+      </div>
+
+      {masterclass ? (
+        <div>
+          <label className="flex cursor-pointer items-start gap-3 text-xs leading-relaxed text-graphite-muted">
+            <input
+              type="checkbox"
+              name="imagem"
+              className="mt-0.5 h-4 w-4 shrink-0 rounded-none accent-blue"
+              checked={values.imagem}
+              onChange={(e) => updateField('imagem', e.target.checked)}
+            />
+            <span className="min-w-0 text-pretty">
+              Autorizo o uso da minha imagem em fotos e vídeos do evento, para divulgação institucional
+              do Gestcorp ECA-USP.
+            </span>
+          </label>
+        </div>
+      ) : null}
+
+      <p className="text-xs leading-relaxed text-graphite-muted">
+        Você pode cancelar o recebimento dessas comunicações quando quiser. Para saber como tratamos
+        seus dados e como exercer seus direitos, consulte nossa{' '}
+        <a href="/politica-de-privacidade" className="underline underline-offset-2">
+          Política de Privacidade
+        </a>
+        .
+      </p>
 
       <div className="pt-2">
         <Button type="submit" size="lg" disabled={status === 'loading' || status === 'success'} className="w-full">

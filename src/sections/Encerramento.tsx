@@ -24,7 +24,7 @@ export function Encerramento() {
         className="closing-image-fade absolute inset-0"
         aria-hidden="true"
       />
-      <UspSeal corner="top-right" />
+      <UspSeal tone="dark" corner="top-right" />
 
       <div className="relative container-site py-24 md:py-32 lg:py-36">
         <div className="max-w-2xl">

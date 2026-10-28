@@ -57,7 +57,36 @@ test('formulário público valida no backend e registra consentimento',async()=>
  for(const data of [{...person,consentimento:false},{...person,email:'x'},{...person,whatsapp:'123'},{...person,nome:'AB'}])assert.equal((await request('/api/public/interests',{method:'POST',auth:false,data})).status,400)
  const r=await request('/api/public/interests',{method:'POST',auth:false,data:person});assert.equal(r.status,201);assert.equal(r.data.items,undefined)
  const rows=(await request('/api/admin/interests')).data;assert.equal(rows.total,1);interestId=rows.items[0].id
- assert.ok(rows.items[0].consent_at);assert.match(rows.items[0].consent_text,/Autorizo/)
+ assert.ok(rows.items[0].consent_at);assert.match(rows.items[0].consent_text,/Política de Privacidade/)
+})
+test('envio público também encaminha o lead ao CRM sem dispensar a área admin',async()=>{
+ const calls=[]
+ const original=globalThis.fetch
+ process.env.CRM_API_KEY='chave-teste'
+ globalThis.fetch=async(url,init)=>{
+  if(String(url).includes('maisalunoscrm.app.br')){calls.push({url:String(url),init});return new Response('{}',{status:200})}
+  return original(url,init)
+ }
+ try{
+  const r=await request('/api/public/interests',{method:'POST',auth:false,data:{...person,email:'crm@example.invalid',comunicacoes:true}})
+  assert.equal(r.status,201)
+  assert.equal(calls.length,1)
+  assert.equal(calls[0].init.method,'POST')
+  assert.equal(calls[0].init.headers['X-API-Key'],'chave-teste')
+  assert.equal(calls[0].init.headers['Content-Type'],'application/json')
+  const body=JSON.parse(calls[0].init.body)
+  assert.equal(body.data.nome,'Pessoa Teste')
+  assert.equal(body.data.email,'crm@example.invalid')
+  assert.equal(body.data.whatsapp,'11999990000')
+  assert.equal(body.data.turma,'gestcorp-2027')
+  assert.equal(body.data.politica_privacidade,'sim')
+  assert.equal(body.data.comunicacoes,'sim')
+  assert.equal(body.data.origem,'home')
+  const rows=(await request('/api/admin/interests?q=crm%40example.invalid')).data
+  assert.equal(rows.total,1)
+  const detail=(await request('/api/admin/interests/'+rows.items[0].id)).data
+  assert.match(detail.history.map(item=>item.action).join(' '),'/CRM Mais Alunos/')
+ }finally{delete process.env.CRM_API_KEY;globalThis.fetch=original}
 })
 test('reenvio público não sobrescreve os dados da pessoa',async()=>{
  const r=await request('/api/public/interests',{method:'POST',auth:false,data:{...person,nome:'Nome Alterado',whatsapp:'21988889999'}});assert.equal(r.status,201)

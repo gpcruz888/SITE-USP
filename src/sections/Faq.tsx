@@ -1,6 +1,7 @@
 import { useId, useState } from 'react'
 import { Minus, Plus } from 'lucide-react'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { faqItems } from '@/data/faq'
 
 export function Faq() {
@@ -10,9 +11,10 @@ export function Faq() {
   return (
     <section
       id="duvidas"
-      className="faq-section bg-white py-20 md:py-28"
+      className="faq-section relative bg-white py-20 md:py-28"
       aria-labelledby="faq-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4 lg:sticky lg:top-32 lg:self-start">

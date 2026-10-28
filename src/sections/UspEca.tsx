@@ -29,9 +29,10 @@ export function UspEca() {
   return (
     <section
       id="usp-eca"
-      className="institution-section bg-cream-light py-20 md:py-28"
+      className="institution-section relative bg-cream-light py-20 md:py-28"
       aria-labelledby="usp-eca-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-6">
@@ -57,7 +58,6 @@ export function UspEca() {
             loading="lazy"
             decoding="async"
           />
-          <UspSeal />
         </div>
 
         <div className="institution-pillars">

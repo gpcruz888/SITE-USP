@@ -1,5 +1,6 @@
 import { CalendarDays, MapPin, Users, Clock3 } from 'lucide-react'
 import { Icon } from '@/components/ui/Icon'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { getTurmaAtiva } from '@/data/turma'
 
 export function HeroHighlight() {
@@ -15,7 +16,8 @@ export function HeroHighlight() {
   return (
     <div className="hero-bridge" aria-label="Informações da turma 2027">
       <div className="container-site">
-        <div className="hero-stat-panel">
+        <div className="hero-stat-panel relative">
+        <UspSeal />
         <div className="hero-stat-inner">
           <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
             {stats.map((item, index) => (

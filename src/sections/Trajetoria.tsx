@@ -1,4 +1,5 @@
 import { MediaFrame } from '@/components/ui/MediaFrame'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { Reveal } from '@/components/ui/Reveal'
 import { banners } from '@/data/banners'
 
@@ -19,9 +20,10 @@ export function Trajetoria() {
   return (
     <section
       id="trajetoria"
-      className="history-section bg-cream-light py-20 md:py-28"
+      className="history-section relative bg-cream-light py-20 md:py-28"
       aria-labelledby="trajetoria-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5 lg:sticky lg:top-32 lg:self-start">
@@ -30,7 +32,6 @@ export function Trajetoria() {
               label="Trajetória do Gestcorp"
               caption="Produção intelectual"
               variant="tall"
-              seal
             />
           </div>
 

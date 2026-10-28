@@ -1,6 +1,7 @@
 import { useId, useState } from 'react'
 import { Minus, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { Icon } from '@/components/ui/Icon'
 
 const perfis = [
@@ -31,9 +32,10 @@ export function ParaQuem() {
   return (
     <section
       id="para-quem"
-      className="audience-section bg-cream-light py-20 md:py-28"
+      className="audience-section relative bg-cream-light py-20 md:py-28"
       aria-labelledby="para-quem-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-5">

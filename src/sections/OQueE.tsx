@@ -11,6 +11,7 @@ export function OQueE() {
       className="course-overview relative z-0 bg-cream-warm"
       aria-labelledby="o-curso-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="course-layout">
           <div className="course-description">
@@ -43,7 +44,6 @@ export function OQueE() {
           <div className="course-visual">
             <div className="course-main-image">
               <img src={banners.uspEca} alt="Formação Gestcorp na ECA-USP" loading="lazy" decoding="async" />
-              <UspSeal />
             </div>
             <div className="course-image-column">
               <div className="course-year"><p>1999</p><p>Trajetória de formação em Comunicação Organizacional e Relações Públicas</p></div>

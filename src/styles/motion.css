@@ -1,0 +1,182 @@
+/* Entrada na rolagem e hovers. Só transform e opacity. O conteúdo acima da dobra não recebe .rise. */
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menu-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise:not(.is-in) {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.rise.is-in {
+  animation: rise-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.site-button:not(.site-button--text) {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-button:not(.site-button--text):hover {
+  transform: translateY(-1px);
+}
+
+.site-button:not(.site-button--text):active {
+  transform: translateY(0) scale(0.985);
+}
+
+.site-button:not(.site-button--text) svg {
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-button:not(.site-button--text):hover svg {
+  transform: translateX(2px);
+}
+
+.site-header nav a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: left calc(100% - 1px);
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition:
+    color 0.2s ease,
+    background-size 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header nav a:hover,
+.site-header nav a:focus-visible {
+  background-size: 100% 1px;
+}
+
+.course-main-image img:not(.usp-seal),
+.institution-panorama img:not(.usp-seal),
+.media-frame img:not(.usp-seal),
+.enrollment-section > .grid > div:first-child > img:not(.usp-seal) {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.course-main-image:hover img:not(.usp-seal),
+.institution-panorama:hover img:not(.usp-seal),
+.media-frame:hover img:not(.usp-seal),
+.enrollment-section > .grid > div:first-child:hover > img:not(.usp-seal) {
+  transform: scale(1.02);
+}
+
+.course-year,
+.trabalho-final-band .container-site > div,
+.faculty-grid article > div {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.course-year:hover,
+.trabalho-final-band .container-site > div:hover {
+  transform: translateY(-3px);
+}
+
+.soft-card {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.soft-card:hover {
+  transform: translateY(-3px);
+}
+
+.experience-section li svg,
+.module-tab svg,
+.faculty-section button[aria-label] svg,
+.audience-section button[aria-expanded] svg {
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.experience-section li:hover svg,
+.module-tab:hover svg,
+.audience-section button[aria-expanded]:hover svg {
+  transform: translateY(-2px);
+}
+
+.faculty-section button[aria-label] {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faculty-section button[aria-label]:active {
+  transform: scale(0.96);
+}
+
+.faculty-section button[aria-label="Professores anteriores"]:hover svg {
+  transform: translateX(-3px);
+}
+
+.faculty-section button[aria-label="Próximos professores"]:hover svg {
+  transform: translateX(3px);
+}
+
+.enrollment-section input:not([type='checkbox']):focus,
+.enrollment-section select:focus,
+.enrollment-section textarea:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-blue) 18%, transparent);
+}
+
+.whatsapp-fab:active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .rise.is-in {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .site-button:hover,
+  .site-button:active,
+  .site-button:hover svg,
+  .course-main-image:hover img,
+  .institution-panorama:hover img,
+  .media-frame:hover img,
+  .enrollment-section > .grid > div:first-child:hover > img,
+  .course-year:hover,
+  .trabalho-final-band .container-site > div:hover,
+  .soft-card:hover,
+  .experience-section li:hover svg,
+  .module-tab:hover svg,
+  .faculty-section button[aria-label]:hover svg,
+  .faculty-section button[aria-label]:active,
+  .audience-section button[aria-expanded]:hover svg,
+  .whatsapp-fab:hover,
+  .whatsapp-fab:active {
+    transform: none !important;
+  }
+}

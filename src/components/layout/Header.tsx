@@ -4,7 +4,7 @@ import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 import { Button } from '@/components/ui/Button'
 import { Logo } from '@/components/ui/Logo'
 
-export function Header() {
+export function Header({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -55,8 +55,9 @@ export function Header() {
     setOpen(false)
   }
 
-  const onDark = !scrolled && !open
-  const floated = scrolled || open
+  const onDark = variant === 'overlay' && !scrolled && !open
+  const floated = variant === 'solid' || scrolled || open
+  const home = variant === 'solid' ? '/' : ''
 
   return (
     <header
@@ -76,7 +77,7 @@ export function Header() {
         <div className="container-site flex h-16 items-center justify-between gap-4 md:h-20 md:gap-6">
           <div className="flex min-w-0 items-center gap-7 lg:gap-9">
             <a
-              href="#topo"
+              href={variant === 'solid' ? '/' : '#topo'}
               className="shrink-0 no-underline transition-opacity hover:opacity-85 focus-visible:outline-blue"
               onClick={handleNavClick}
               aria-label="Gestcorp ECA-USP — início"
@@ -91,7 +92,7 @@ export function Header() {
               {navItems.map((item) => (
                 <a
                   key={item.href}
-                  href={item.href}
+                  href={`${home}${item.href}`}
                   className={[
                     'whitespace-nowrap text-[0.8125rem] font-medium tracking-tight no-underline transition-colors focus-visible:outline-blue xl:text-[0.875rem]',
                     onDark
@@ -157,7 +158,7 @@ export function Header() {
             {navItems.map((item) => (
               <a
                 key={item.href}
-                href={item.href}
+                href={`${home}${item.href}`}
                 onClick={handleNavClick}
                 className="border-b border-border/50 py-4 text-base font-medium tracking-tight text-blue-deep no-underline transition-colors hover:text-blue"
               >

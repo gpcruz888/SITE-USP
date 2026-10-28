@@ -7,7 +7,7 @@ export const contact = {
     'Departamento de Relações Públicas, Propaganda e Turismo da Escola de Comunicações e Artes da Universidade de São Paulo',
   identification:
     'Gestcorp ECA-USP | Especialização em Gestão Estratégica em Comunicação Organizacional e Relações Públicas',
-  privacyPolicyUrl: null as string | null, // Pendente de configuração
+  privacyPolicyUrl: '/politica-de-privacidade',
   social: {
     linkedin: 'https://www.linkedin.com/company/gestcorp-eca-usp',
     instagram: 'https://www.instagram.com/gestcorp_eca_usp/',

@@ -26,7 +26,7 @@ export function Turma2027() {
             aria-hidden="true"
           />
           <div className="enrollment-image-fade absolute inset-0" aria-hidden="true" />
-          <UspSeal corner="top-right" />
+          <UspSeal tone="dark" corner="top-right" />
           <div className="relative flex h-full flex-col justify-end px-6 py-10 sm:px-8 md:p-12 lg:p-14">
             <p className="text-xs font-semibold tracking-[0.14em] text-cream/70 uppercase">
               Turma 2027

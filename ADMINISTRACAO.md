@@ -49,7 +49,7 @@ Senhas são armazenadas com scrypt e salt aleatório. Tokens de sessão e ativa�
 
 A sessão dura até 8 horas de inatividade, com limite absoluto de 24 horas. O painel mantém a sessão enquanto estiver sendo usado; logout e mudança de senha revogam sessões no servidor. Nenhuma senha ou sessão é armazenada em localStorage. Mudanças relevantes ficam no histórico, com operador e data. Mensagens de erro e logs não devem conter payloads ou strings de conexão.
 
-Faça backup do banco conforme a política da instituição. No Neon, configure retenção e recuperação no provedor; localmente, pare o servidor antes de copiar a pasta `data/gestcorp`. Revise periodicamente administradores, retenção de dados e consentimentos. O projeto não adiciona envio de e-mail, documentos de candidatos, decisões automáticas de seleção ou integração com sistemas acadêmicos.
+Faça backup do banco conforme a política da instituição. No Neon, configure retenção e recuperação no provedor; localmente, pare o servidor antes de copiar a pasta `data/gestcorp`. Revise periodicamente administradores, retenção de dados e consentimentos. O projeto não adiciona envio de e-mail, documentos de candidatos ou decisões automáticas de seleção. O formulário público grava o lead na área administrativa e, quando `CRM_API_KEY` está configurada, também envia o mesmo cadastro ao CRM Mais Alunos.
 
 ## Testes
 

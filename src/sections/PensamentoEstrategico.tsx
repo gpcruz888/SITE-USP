@@ -1,14 +1,16 @@
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { Icon } from '@/components/ui/Icon'
 
 export function PensamentoEstrategico() {
   return (
     <section
       id="pensamento"
-      className="strategy-section bg-blue py-16 text-white md:py-20"
+      className="strategy-section relative bg-blue py-16 text-white md:py-20"
       aria-labelledby="pensamento-title"
     >
+      <UspSeal tone="dark" />
       <div className="container-site">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">

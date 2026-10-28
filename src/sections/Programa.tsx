@@ -32,9 +32,10 @@ export function Programa() {
   return (
     <section
       id="programa"
-      className="curriculum-section bg-cream-light pt-20 md:pt-28"
+      className="curriculum-section relative bg-cream-light pt-20 md:pt-28"
       aria-labelledby="programa-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-12">
           <h2 id="programa-title" className="text-title-md text-graphite lg:col-span-7">
@@ -161,7 +162,7 @@ export function Programa() {
         style={{ backgroundImage: `url(${banners.trabalhoFinal})` }}
       >
         <div className="absolute inset-0 bg-blue-deep/25" aria-hidden="true" />
-        <UspSeal corner="top-right" />
+        <UspSeal tone="dark" corner="top-right" />
 
         <div className="relative container-site w-full">
           <div className="max-w-xl rounded-t-2xl bg-blue/92 px-7 py-9 text-white backdrop-blur-[2px] sm:px-9 sm:py-10 md:max-w-lg lg:max-w-xl">

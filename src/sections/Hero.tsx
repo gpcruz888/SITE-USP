@@ -9,7 +9,7 @@ export function Hero() {
       <div className="hero-layout">
         <div className="hero-narrative">
           <div className="hero-content">
-            <UspSeal inline />
+            <UspSeal inline tone="dark" />
 
             <h1 id="hero-title" className="text-display-lg text-white">
               Não basta comunicar decisões,{' '}

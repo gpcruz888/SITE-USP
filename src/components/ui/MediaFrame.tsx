@@ -75,7 +75,7 @@ export function MediaFrame({
           {mark}
         </span>
       )}
-      {seal ? <UspSeal corner="top-right" /> : null}
+      {seal ? <UspSeal tone="dark" corner="top-right" /> : null}
       {caption ? (
         <figcaption className="media-frame__caption">
           <span>{caption}</span>

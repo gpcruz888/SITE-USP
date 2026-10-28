@@ -6,6 +6,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
+import { UspSeal } from '@/components/ui/UspSeal'
 import { Icon } from '@/components/ui/Icon'
 import { Reveal } from '@/components/ui/Reveal'
 import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
@@ -41,9 +42,10 @@ export function ProcessoSeletivo() {
   return (
     <section
       id="processo"
-      className="admissions-section bg-cream-warm py-20 md:py-28"
+      className="admissions-section relative bg-cream-warm py-20 md:py-28"
       aria-labelledby="processo-title"
     >
+      <UspSeal />
       <div className="container-site">
         <div className="max-w-2xl">
           <p className="text-xs font-semibold tracking-[0.14em] text-blue uppercase">

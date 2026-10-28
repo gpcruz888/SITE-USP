@@ -161,7 +161,7 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .enrollment-section { background:var(--color-blue-deep); }
 .enrollment-section > .grid { max-width:1320px; margin-inline:auto; grid-template-columns:1fr 1fr; }
 .enrollment-section > .grid > div:first-child { border-radius:0; margin:40px 0 40px 40px; overflow:hidden; position:relative; }
-.enrollment-section > .grid > div:first-child > img { opacity:1; object-position:64% top; }
+.enrollment-section > .grid > div:first-child > img:not(.usp-seal) { opacity:1; object-position:center 30%; }
 .enrollment-section > .grid > div:first-child > div:last-child { padding:45px; min-height:100%; }
 .enrollment-section h2 { font-size:clamp(31px,3.4vw,46px); line-height:1.15; }
 .enrollment-section dl { margin-top:38px; gap:25px; }
@@ -448,27 +448,27 @@ footer { padding-bottom:100px; }
 
 img.usp-seal-inline {
   display: block;
-  width: min(168px, 62%);
+  width: min(156px, 48%);
   height: auto;
-  margin: 0 0 1.35rem;
+  margin: 0 0 1.15rem;
   object-fit: contain;
   object-position: left center;
 }
 img.usp-seal {
   position: absolute !important;
   z-index: 4;
-  width: min(280px, 58%) !important;
-  height: auto !important;
-  max-height: 72px !important;
+  width: auto !important;
+  height: 64px !important;
+  max-height: 64px !important;
+  max-width: 58%;
   inset: auto 14px 14px auto !important;
   object-fit: contain !important;
   object-position: center !important;
   pointer-events: none;
-  opacity: 0.94;
 }
 img.usp-seal.usp-seal--top { inset: 14px 14px auto auto !important; }
 .home-hero img.usp-seal.usp-seal--top { inset: 6.4rem 1.25rem auto auto !important; }
 @media (max-width: 767px) {
-  img.usp-seal { width: min(210px, 70%) !important; max-height: 54px !important; }
+  img.usp-seal { height: 48px !important; max-height: 48px !important; }
   .home-hero img.usp-seal.usp-seal--top { inset: 5.1rem 0.85rem auto auto !important; }
 }
