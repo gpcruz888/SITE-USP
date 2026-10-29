@@ -82,7 +82,7 @@ export function Header({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' 
               onClick={handleNavClick}
               aria-label="Gestcorp ECA-USP — início"
             >
-              <Logo light={onDark} />
+              <Logo eca light={onDark} />
             </a>
 
             <nav
@@ -116,7 +116,7 @@ export function Header({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' 
               size="sm"
               className="hidden sm:inline-flex"
             >
-              Quero me Matricular
+              Inscreva-se já
             </Button>
 
             <button
@@ -178,7 +178,7 @@ export function Header({ variant = 'overlay' }: { variant?: 'overlay' | 'solid' 
                 size="lg"
                 onClick={handleNavClick}
               >
-                Quero me Matricular
+                Inscreva-se já
               </Button>
             </div>
           </nav>

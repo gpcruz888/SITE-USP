@@ -73,18 +73,25 @@
   background-size: 100% 1px;
 }
 
+.hero-photo img:not(.usp-seal),
 .course-main-image img:not(.usp-seal),
+.course-image-column > img:not(.usp-seal),
 .institution-panorama img:not(.usp-seal),
 .media-frame img:not(.usp-seal),
-.enrollment-section > .grid > div:first-child > img:not(.usp-seal) {
+.enrollment-section > .grid > div:first-child > img:not(.usp-seal),
+.closing-section > img:not(.usp-seal) {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
+.hero-photo:hover img:not(.usp-seal),
 .course-main-image:hover img:not(.usp-seal),
+.course-image-column > img:not(.usp-seal):hover,
 .institution-panorama:hover img:not(.usp-seal),
 .media-frame:hover img:not(.usp-seal),
-.enrollment-section > .grid > div:first-child:hover > img:not(.usp-seal) {
-  transform: scale(1.02);
+.enrollment-section > .grid > div:first-child:hover > img:not(.usp-seal),
+.closing-section:hover > img:not(.usp-seal) {
+  transform: scale(1.03);
 }
 
 .course-year,
@@ -173,10 +180,13 @@
   .site-button:hover,
   .site-button:active,
   .site-button:hover svg,
+  .hero-photo:hover img,
   .course-main-image:hover img,
+  .course-image-column > img:hover,
   .institution-panorama:hover img,
   .media-frame:hover img,
   .enrollment-section > .grid > div:first-child:hover > img,
+  .closing-section:hover > img,
   .course-year:hover,
   .trabalho-final-band .container-site > div:hover,
   .soft-card:hover,

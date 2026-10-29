@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/Button'
-import { UspSeal } from '@/components/ui/UspSeal'
+import { Logo } from '@/components/ui/Logo'
 import { getWhatsAppHref, getWhatsAppTarget } from '@/data/contact'
 import { banners } from '@/data/banners'
 
@@ -9,11 +9,13 @@ export function Hero() {
       <div className="hero-layout">
         <div className="hero-narrative">
           <div className="hero-content">
-            <UspSeal inline tone="dark" />
+            <div className="mb-6">
+              <Logo gestcorp />
+            </div>
 
-            <h1 id="hero-title" className="text-display-lg text-white">
-              Não basta comunicar decisões,{' '}
-              <span className="text-cream">é preciso participar delas</span>
+            <h1 id="hero-title" className="text-display-lg text-cream">
+              Viva a experiência de fazer pós-graduação da{' '}
+              <span className="hero-title-brand">ECA-USP</span>
             </h1>
 
             <p className="mt-7 max-w-md text-[1.0625rem] leading-relaxed text-cream/80 md:text-lg">

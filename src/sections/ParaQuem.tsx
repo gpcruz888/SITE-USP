@@ -124,7 +124,7 @@ export function ParaQuem() {
             experiências integra a riqueza das discussões em sala.
           </p>
           <Button href="#turma-2027" size="lg" className="shrink-0">
-            Quero me Matricular
+            Garanta sua vaga
           </Button>
         </div>
       </div>

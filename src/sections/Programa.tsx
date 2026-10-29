@@ -182,7 +182,7 @@ export function Programa() {
                 data-location="trabalho"
                 size="lg"
               >
-                Garanta sua Matrícula
+                Garanta sua vaga
               </Button>
             </div>
           </div>

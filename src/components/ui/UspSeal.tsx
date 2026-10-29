@@ -9,20 +9,10 @@ interface UspSealProps {
 }
 
 /** Selo USP. O tom segue o fundo da seção. */
-export function UspSeal({ tone = 'light', corner = 'top-right', inline = false }: UspSealProps) {
+export function UspSeal({ tone = 'light', inline = false }: UspSealProps) {
+  if (!inline) return null
   const src = tone === 'dark' ? seloEscuro : seloClaro
   const alt = 'ECA-USP'
 
-  if (inline) {
-    return <img src={src} alt={alt} className="usp-seal-inline" />
-  }
-
-  return (
-    <img
-      src={src}
-      alt=""
-      aria-hidden="true"
-      className={['usp-seal', corner === 'top-right' ? 'usp-seal--top' : ''].filter(Boolean).join(' ')}
-    />
-  )
+  return <img src={src} alt={alt} className="usp-seal-inline" />
 }

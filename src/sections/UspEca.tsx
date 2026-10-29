@@ -14,7 +14,7 @@ const blocos: {
     text: 'Uma universidade de referência na produção científica e na formação superior brasileira. No QS Latin America & Caribbean Ranking 2027, divulgado em outubro de 2026, a USP ocupa a segunda posição entre 517 instituições avaliadas.',
   },
   {
-    title: 'ECA-USP',
+    title: 'ECA',
     icon: Palette,
     text: 'Uma escola dedicada ao ensino, à pesquisa e à produção de conhecimento nos campos da Comunicação e das Artes. É também a sede acadêmica da revista Organicom, dedicada à Comunicação Organizacional e às Relações Públicas.',
   },

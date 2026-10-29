@@ -6,7 +6,7 @@ import { Reveal } from '@/components/ui/Reveal'
 const infos = [
   {
     label: 'Local',
-    value: 'Aulas presenciais na ECA-USP, Cidade Universitária',
+    value: 'Aulas presenciais na ECA, Cidade Universitária',
     icon: MapPin,
   },
   {

@@ -20,7 +20,7 @@ export function OQueE() {
             <p className="mt-6 text-[1.0625rem] leading-relaxed text-graphite-muted md:text-lg">
               O Gestcorp é a Especialização em Gestão Estratégica em Comunicação Organizacional e
               Relações Públicas da Escola de Comunicações e Artes da Universidade de São Paulo
-              (ECA-USP). &quot;Gestcorp&quot; é a forma curta do nome do curso.
+              (ECA). &quot;Gestcorp&quot; é a forma curta do nome do curso.
             </p>
             <p className="mt-4 text-[1.0625rem] leading-relaxed text-graphite-muted md:text-lg">
               Criado em 1999, o curso articula fundamentos científicos, reflexão crítica e questões

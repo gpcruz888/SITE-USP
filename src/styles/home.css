@@ -25,7 +25,8 @@ main p { text-wrap:pretty; }
 .site-header nav[aria-label="Navegação Principal"] { gap:20px; }
 .site-header nav[aria-label="Navegação Principal"] a { font-size:12px; }
 .site-header .site-button { min-height:42px; padding:12px 20px; font-size:12px; }
-.site-header a[aria-label="Gestcorp ECA-USP — início"] img { max-width:155px; height:37px; }
+.site-header a[aria-label="Gestcorp ECA-USP — início"] img { max-width:none; height:56px; width:auto; }
+.site-header--floated a[aria-label="Gestcorp ECA-USP — início"] img { height:40px; }
 body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibility:hidden; pointer-events:none; }
 #menu-mobile { max-height:calc(100dvh - 84px); overflow-y:auto; overscroll-behavior:contain; }
 .home-hero { background:var(--color-blue-deep); }
@@ -34,6 +35,8 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .hero-content { max-width:600px; }
 #hero-title { max-width:650px; font-size:clamp(41px,4.6vw,64px); font-weight:650; letter-spacing:-.055em; line-height:1.08; }
 #hero-title > span { color:#aecbff; }
+#hero-title > span.hero-title-brand { display:block; color:#ff8a1f; font-size:1.45em; font-weight:700; line-height:1.05; letter-spacing:-.04em; margin-top:.08em; }
+.hero-gestcorp-logo { max-width:none; }
 .hero-content > p:first-child { font-size:10px; color:#aecbff; letter-spacing:.16em; }
 .hero-content > p:not(:first-child) { max-width:500px; font-size:16px; line-height:1.75; color:#d3dff1; }
 .hero-content > div { flex-wrap:wrap; gap:12px; }
@@ -67,7 +70,7 @@ body[data-menu-open] .sticky-cta, body[data-menu-open] .whatsapp-fab { visibilit
 .institution-section > .container-site > div:first-child { align-items:start; }
 .institution-section > .container-site > div:first-child > p { font-size:16px; line-height:1.8; padding-top:34px; }
 .institution-panorama { position:relative; margin-top:36px; border-radius:var(--home-radius); overflow:hidden; }
-.institution-panorama img { width:100%; height:280px; object-fit:cover; object-position:center center; }
+.institution-panorama img { width:100%; height:340px; object-fit:cover; object-position:center 18%; }
 .institution-pillars { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin-top:30px; }
 .institution-pillars .soft-card { padding:12px 30px 0; border:0; border-left:1px solid #cedaeb; border-radius:0; box-shadow:none; background:transparent; overflow:visible; }
 .institution-pillars .soft-card:first-child { padding-left:0; border-left:0; }
@@ -302,7 +305,7 @@ footer { padding-bottom:100px; }
   .course-image-column > img { height:160px; border-radius:10px; }
   .institution-section > .container-site > div:first-child > p { font-size:15px; }
   .institution-panorama { border-radius:12px; margin-top:28px; }
-  .institution-panorama img { height:210px; object-position:center center; }
+  .institution-panorama img { height:210px; object-position:center 18%; }
   .audience-section .prose-editorial { font-size:15px; }
   .audience-section button[aria-expanded] { padding:21px 10px; gap:12px; }
   .audience-section button[aria-expanded] > span:nth-child(2) { font-size:17px; line-height:1.5; }

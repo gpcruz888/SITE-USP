@@ -86,7 +86,7 @@ export function ProcessoSeletivo() {
             data-location="processo"
             size="lg"
           >
-            Faça sua Matrícula Agora
+            Faça sua matrícula
           </Button>
         </div>
       </div>

@@ -9,8 +9,10 @@ import usp9 from '@/img/optimized/USP_9.jpg'
 import usp10 from '@/img/optimized/USP_10.jpg'
 import usp11 from '@/img/optimized/USP_11.jpg'
 import usp12 from '@/img/optimized/USP_12.jpg'
-import turmaForm from '@/img/optimized/turma-form.jpg'
-import trabalhoFinalFoto from '@/img/optimized/trabalho-final.jpg'
+import turmaForm from '@/img/Estudo colaborativo no campus.png'
+import trabalhoFinalFoto from '@/img/Estudo ao Entardecer com Design Vibrante.png'
+
+import encerramentoNovo from '@/img/Estudo colaborativo na biblioteca iluminada - cópia.png'
 
 /**
  * Fotografias das seções principais da home.
@@ -23,9 +25,9 @@ export const banners = {
   trajetoria: usp9,
   trabalhoFinal: trabalhoFinalFoto,
   turma: turmaForm,
-  encerramento: usp10,
+  encerramento: encerramentoNovo,
   /** Reserva visual para seções futuras / galeria institucional */
-  galeria: [usp6, usp4, usp5, usp8, usp11, usp12] as const,
+  galeria: [usp6, usp4, usp5, usp8, usp10, usp11, usp12] as const,
 } as const
 
 export const bannerSlots = {

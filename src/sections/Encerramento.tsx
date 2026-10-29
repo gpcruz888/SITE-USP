@@ -48,7 +48,7 @@ export function Encerramento() {
               data-location="encerramento"
               size="lg"
             >
-              Quero me Matricular
+              Faça sua matrícula
             </Button>
             <a
               href="#duvidas"
