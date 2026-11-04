@@ -32,7 +32,7 @@ export const modulos: Modulo[] = [
       },
       { nome: 'Introdução à Ciência Política', professor: 'Maria do Socorro Braga' },
       { nome: 'Cultura Organizacional e Comunicação', professor: 'Renata Beretta' },
-      { nome: 'Gestão de Risco, Comunicação e Crises', professor: 'Sérgio Andreucci' },
+      { nome: 'Gestão de Risco, Comunicação e Crises', professor: 'Sérgio Andreucci (licenciado)' },
       { nome: 'Ética, Integridade e Comunicação', professor: 'Ágatha Paraventi' },
     ],
   },

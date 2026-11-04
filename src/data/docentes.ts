@@ -169,7 +169,7 @@ export const docentes: Docente[] = [
   },
   {
     id: 'sergio-andreucci',
-    nome: 'Sérgio Andreucci',
+    nome: 'Sérgio Andreucci (licenciado)',
     disciplinas: ['Gestão de Risco, Comunicação e Crises'],
     lattes: 'http://lattes.cnpq.br/8315242219969418',
   },
