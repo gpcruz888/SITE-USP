@@ -1,4 +1,5 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { CheckCircle2, Loader2, X } from 'lucide-react'
 import { captureAttribution, submitCrmLead } from '@/lib/crm'
 import { Button } from '@/components/ui/Button'
 import { getTurmaAtiva, turmas } from '@/data/turma'
@@ -48,6 +49,56 @@ function validate(values: FormValues): FormErrors {
   return errors
 }
 
+function createInitialValues(turmaId: string): FormValues {
+  return {
+    nome: '',
+    email: '',
+    whatsapp: '',
+    turmaId,
+    consentimento: false,
+    comunicacoes: false,
+    imagem: false,
+  }
+}
+
+let supportsDisplayTransition: boolean | undefined
+
+function canTransitionDisplay(): boolean {
+  if (supportsDisplayTransition !== undefined) return supportsDisplayTransition
+  if (!window.CSS?.supports?.('transition-behavior', 'allow-discrete') || !document.body) {
+    return false
+  }
+  const probe = document.createElement('div')
+  probe.style.cssText = 'transition: display 1s allow-discrete !important; display: block;'
+  document.body.appendChild(probe)
+  getComputedStyle(probe).display
+  probe.style.display = 'none'
+  supportsDisplayTransition = getComputedStyle(probe).display === 'block'
+  probe.remove()
+  return supportsDisplayTransition
+}
+
+function supportsTopLayerExit(): boolean {
+  return Boolean(window.CSS?.supports?.('overlay', 'auto')) && canTransitionDisplay()
+}
+
+async function closeTopLayer(dialog: HTMLDialogElement): Promise<void> {
+  if (!dialog.open) return
+  if (!supportsTopLayerExit()) {
+    dialog.setAttribute('data-closing', '')
+    const animations = dialog.getAnimations({ subtree: true })
+    if (animations.length > 0) {
+      await Promise.race([
+        Promise.allSettled(animations.map((animation) => animation.finished)),
+        new Promise((resolve) => window.setTimeout(resolve, 500)),
+      ])
+    }
+    if (!dialog.hasAttribute('data-closing')) return
+    dialog.removeAttribute('data-closing')
+  }
+  dialog.close()
+}
+
 export function InterestForm({
   className = '',
   conversion = false,
@@ -60,25 +111,101 @@ export function InterestForm({
   masterclass?: boolean
 }) {
   const turmaAtiva = getTurmaAtiva()
-  const [values, setValues] = useState<FormValues>({
-    nome: '',
-    email: '',
-    whatsapp: '',
-    turmaId: turmaAtiva.id,
-    consentimento: false,
-    comunicacoes: false,
-    imagem: false,
-  })
+  const [values, setValues] = useState<FormValues>(() => createInitialValues(turmaAtiva.id))
   const [errors, setErrors] = useState<FormErrors>({})
   const [status, setStatus] = useState<FormStatus>('idle')
   const [serverMessage, setServerMessage] = useState('')
+  const [submittedFirstName, setSubmittedFirstName] = useState('')
   const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const resetTimerRef = useRef<number | null>(null)
+  const dialogTitleId = useId()
+
+  const clearResetTimer = useCallback(() => {
+    if (resetTimerRef.current !== null) {
+      window.clearTimeout(resetTimerRef.current)
+      resetTimerRef.current = null
+    }
+  }, [])
+
+  const scheduleSuccessReset = useCallback(() => {
+    clearResetTimer()
+    resetTimerRef.current = window.setTimeout(() => {
+      setStatus((prev) => (prev === 'success' ? 'idle' : prev))
+      setServerMessage('')
+      resetTimerRef.current = null
+    }, 5000)
+  }, [clearResetTimer])
+
+  const dismissDialog = useCallback(() => {
+    if (dialogRef.current) {
+      void closeTopLayer(dialogRef.current)
+    }
+  }, [])
 
   useEffect(() => {
     captureAttribution()
-  }, [])
+    return () => clearResetTimer()
+  }, [clearResetTimer])
+
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    const handleCancel = (event: Event) => {
+      event.preventDefault()
+      void closeTopLayer(dialog)
+    }
+
+    const handleClose = () => {
+      dialog.returnValue = ''
+      scheduleSuccessReset()
+    }
+
+    dialog.addEventListener('cancel', handleCancel)
+    dialog.addEventListener('close', handleClose)
+
+    if ('closedBy' in HTMLDialogElement.prototype) {
+      return () => {
+        dialog.removeEventListener('cancel', handleCancel)
+        dialog.removeEventListener('close', handleClose)
+      }
+    }
+
+    const isOutside = (event: PointerEvent) => {
+      const rect = dialog.getBoundingClientRect()
+      return (
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom
+      )
+    }
+
+    let pressedOutside = false
+    const handlePointerDown = (event: PointerEvent) => {
+      pressedOutside = isOutside(event)
+    }
+    const handlePointerUp = (event: PointerEvent) => {
+      if (pressedOutside && isOutside(event)) {
+        void closeTopLayer(dialog)
+      }
+      pressedOutside = false
+    }
+
+    dialog.addEventListener('pointerdown', handlePointerDown)
+    dialog.addEventListener('pointerup', handlePointerUp)
+
+    return () => {
+      dialog.removeEventListener('cancel', handleCancel)
+      dialog.removeEventListener('close', handleClose)
+      dialog.removeEventListener('pointerdown', handlePointerDown)
+      dialog.removeEventListener('pointerup', handlePointerUp)
+    }
+  }, [scheduleSuccessReset])
 
   function updateField<K extends keyof FormValues>(key: K, value: FormValues[K]) {
+    clearResetTimer()
     setValues((prev) => ({ ...prev, [key]: value }))
     setStatus('idle')
     setServerMessage('')
@@ -106,17 +233,26 @@ export function InterestForm({
       return
     }
 
+    clearResetTimer()
     setStatus('loading')
-
     setServerMessage('')
+
+    const firstName = values.nome.trim().split(/\s+/)[0] || ''
     const result = await submitCrmLead(values)
     if (result.ok) {
+      setSubmittedFirstName(firstName)
+      setValues(createInitialValues(turmaAtiva.id))
+      setErrors({})
+      setTouched({})
       setServerMessage(
         applicationProcessId
           ? 'Solicitação recebida. A equipe acompanhará sua inscrição.'
-          : 'Interesse recebido. A equipe entrará em contato.',
+          : 'Interesse recebido. Em breve, a equipe entrará em contato.',
       )
       setStatus('success')
+      if (dialogRef.current && !dialogRef.current.open) {
+        dialogRef.current.showModal()
+      }
     } else {
       setServerMessage(result.error)
       setStatus('error')
@@ -132,12 +268,13 @@ export function InterestForm({
     : 'mb-1.5 block text-sm font-medium text-graphite-muted'
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className={['space-y-5', className].join(' ')}
-      aria-describedby="form-status"
-    >
+    <>
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className={['space-y-5', className].join(' ')}
+        aria-describedby="form-status"
+      >
       <div>
         <label htmlFor="lead-nome" className={labelClass}>
           Nome completo
@@ -309,33 +446,99 @@ export function InterestForm({
       </p>
 
       <div className="pt-2">
-        <Button type="submit" size="lg" disabled={status === 'loading' || status === 'success'} className="w-full">
-          {status === 'loading' ? 'Enviando…' : status === 'success' ? 'Enviado com sucesso' : applicationProcessId ? 'Enviar inscrição' : conversion ? 'Garanta sua Matrícula' : 'Enviar interesse'}
+        <Button
+          type="submit"
+          size="lg"
+          variant={status === 'success' ? 'success' : 'primary'}
+          disabled={status === 'loading' || status === 'success'}
+          className="w-full"
+        >
+          {status === 'loading' ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              <span>Enviando…</span>
+            </>
+          ) : status === 'success' ? (
+            <>
+              <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
+              <span>Enviado com sucesso</span>
+            </>
+          ) : applicationProcessId ? (
+            'Enviar inscrição'
+          ) : conversion ? (
+            'Garanta sua Matrícula'
+          ) : (
+            'Enviar interesse'
+          )}
         </Button>
       </div>
 
-      <p
+      <div
         id="form-status"
         className="text-xs leading-relaxed text-graphite-light"
         role="status"
         aria-live="polite"
       >
         {status === 'success' && (
-          <span className="text-blue font-medium">
-            {serverMessage}
-          </span>
+          <div className="flex items-start gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2.5 text-xs font-medium text-emerald-900">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" aria-hidden="true" />
+            <span>{serverMessage}</span>
+          </div>
         )}
         {status === 'error' && (
-          <span className="text-orange-dark">
+          <p className="text-orange-dark">
             {serverMessage || 'Revise os campos destacados antes de continuar.'}
-          </span>
+          </p>
         )}
         {status === 'idle' && (
-          <>Seus dados serão usados pela equipe para acompanhar seu interesse na formação.</>
+          <p>Seus dados serão usados pela equipe para acompanhar seu interesse na formação.</p>
         )}
-      </p>
+      </div>
       {!applicationProcessId && <a href="/inscricao" className="inline-flex text-xs font-medium text-blue underline-offset-4 hover:underline">Consultar processos com inscrições abertas →</a>}
-    </form>
+      </form>
+
+      <dialog
+        ref={dialogRef}
+        className="site-dialog"
+        aria-labelledby={dialogTitleId}
+        {...({ closedby: 'any' } as Record<string, string>)}
+      >
+        <div className="relative p-6 text-center sm:p-7">
+          <button
+            type="button"
+            onClick={dismissDialog}
+            aria-label="Fechar aviso"
+            className="absolute top-4 right-4 inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-graphite-muted transition-colors hover:bg-cream-light hover:text-blue-deep"
+          >
+            <X className="h-4 w-4" aria-hidden="true" />
+          </button>
+
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-emerald-200 bg-emerald-50">
+            <CheckCircle2 className="h-7 w-7 text-emerald-700" aria-hidden="true" />
+          </div>
+
+          <h1 id={dialogTitleId} className="text-xl font-bold tracking-tight text-blue-deep">
+            {applicationProcessId ? 'Inscrição enviada com sucesso' : 'Mensagem enviada com sucesso'}
+          </h1>
+
+          <p className="mt-2.5 text-sm leading-relaxed text-graphite-muted">
+            {submittedFirstName ? `Obrigado, ${submittedFirstName}! ` : ''}
+            {serverMessage || 'Recebemos seus dados. Em breve, nossa equipe entrará em contato por e-mail ou WhatsApp.'}
+          </p>
+
+          <Button
+            type="button"
+            variant="secondary"
+            size="md"
+            autoFocus
+            onClick={dismissDialog}
+            className="mt-6 w-full"
+          >
+            Entendi
+          </Button>
+        </div>
+      </dialog>
+    </>
   )
 }
 

@@ -13,6 +13,11 @@ main p { text-wrap:pretty; }
 .site-button:disabled { cursor:wait; opacity:.65; }
 .site-button--primary { color:#11264b; background:#ff862f; }
 .site-button--primary:hover { background:#ff9b52; }
+.site-button--success,
+.site-button--success:hover,
+.site-button--success:disabled { color:#ffffff; background:#15803d; opacity:1; cursor:default; transform:none; }
+.site-button--success:hover svg,
+.site-button:disabled:hover svg { transform:none; }
 .site-button--ghost { background:transparent; border-color:#0860f63d; }
 .site-button--outline-light { background:transparent; border-color:#ffffff4d; }
 .site-button svg { flex-shrink:0; }
@@ -474,4 +479,73 @@ img.usp-seal.usp-seal--top { inset: 14px 14px auto auto !important; }
 @media (max-width: 767px) {
   img.usp-seal { height: 48px !important; max-height: 48px !important; }
   .home-hero img.usp-seal.usp-seal--top { inset: 5.1rem 0.85rem auto auto !important; }
+}
+
+dialog.site-dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog.site-dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: rgba(17, 38, 75, 0);
+  transition-property: background-color, display, overlay;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+dialog.site-dialog {
+  margin: auto;
+  width: min(calc(100vw - 2rem), 26.5rem);
+  max-width: 100%;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-cream-warm);
+  color: var(--color-graphite);
+  box-shadow: 0 24px 64px rgba(17, 38, 75, 0.28);
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-out;
+  transition-behavior: allow-discrete;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.site-dialog {
+    transform: scale(0.94);
+  }
+}
+
+dialog.site-dialog[open]:where(:not([data-closing])) {
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transform: scale(1);
+
+    @starting-style {
+      transform: scale(0.94);
+    }
+  }
+
+  &::backdrop {
+    background-color: rgba(17, 38, 75, 0.62);
+    backdrop-filter: blur(4px);
+
+    @starting-style {
+      background-color: rgba(17, 38, 75, 0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  dialog.site-dialog,
+  dialog.site-dialog::backdrop {
+    transition-duration: 0.1s;
+  }
 }
