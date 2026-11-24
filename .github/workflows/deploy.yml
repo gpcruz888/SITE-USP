@@ -1,0 +1,164 @@
+name: Deploy Gestcorp ECA-USP (SFTP)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-gestcorp-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    name: Build e Deploy SFTP
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js 22 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Gerar build de produção
+        run: npm run build
+
+      - name: Auditar diretório dist/ antes do envio
+        run: |
+          set -euo pipefail
+
+          if [ ! -f dist/index.html ]; then
+            echo "Erro: dist/index.html não foi gerado."
+            exit 1
+          fi
+
+          if [ ! -d dist/assets ]; then
+            echo "Erro: diretório dist/assets não foi gerado."
+            exit 1
+          fi
+
+          forbidden=$(find dist \( \
+            -name ".git*" -o \
+            -name ".env*" -o \
+            -name "node_modules" -o \
+            -name ".DS_Store" -o \
+            -name "*.sqlite*" -o \
+            -name "*.db" -o \
+            -name "*.pem" -o \
+            -name "*.key" \
+          \) -print)
+
+          if [ -n "$forbidden" ]; then
+            echo "Erro: arquivos proibidos encontrados em dist/:"
+            echo "$forbidden"
+            exit 1
+          fi
+
+          echo "Auditoria de dist/ concluída com sucesso."
+
+      - name: Instalar lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends lftp
+
+      - name: Publicar conteúdo de dist/ via SFTP (lftp)
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
+          FTP_DIRECTORY: ${{ secrets.FTP_DIRECTORY }}
+        run: |
+          set -euo pipefail
+
+          for var_name in FTP_SERVER FTP_USERNAME FTP_PASSWORD FTP_PORT FTP_DIRECTORY; do
+            if [ -z "${!var_name:-}" ]; then
+              echo "Erro: secret obrigatório ${var_name} não está definido ou está vazio."
+              exit 1
+            fi
+          done
+
+          for var_name in FTP_SERVER FTP_USERNAME FTP_PORT FTP_DIRECTORY; do
+            case "${!var_name}" in
+              *$'\n'*|*$'\r'*)
+                echo "Erro: ${var_name} contém quebra de linha inválida."
+                exit 1
+                ;;
+            esac
+          done
+
+          if ! [[ "${FTP_PORT}" =~ ^[0-9]+$ ]] || [ "${FTP_PORT}" -lt 1 ] || [ "${FTP_PORT}" -gt 65535 ]; then
+            echo "Erro: FTP_PORT deve ser um número inteiro entre 1 e 65535."
+            exit 1
+          fi
+
+          if [[ "${FTP_DIRECTORY}" != /* ]] || [ "${FTP_DIRECTORY}" = "/" ] || [[ "${FTP_DIRECTORY}" == *".."* ]]; then
+            echo "Erro: FTP_DIRECTORY deve ser um caminho absoluto válido e diferente de '/'."
+            exit 1
+          fi
+
+          if [ ! -f .github/known_hosts ]; then
+            echo "Erro: arquivo .github/known_hosts não encontrado."
+            exit 1
+          fi
+
+          KNOWN_HOSTS_FILE="$(mktemp "${RUNNER_TEMP}/known_hosts.XXXXXX")"
+          LFTP_SCRIPT="$(mktemp "${RUNNER_TEMP}/deploy.XXXXXX.lftp")"
+          chmod 600 "${KNOWN_HOSTS_FILE}" "${LFTP_SCRIPT}"
+
+          cleanup() {
+            rm -f "${KNOWN_HOSTS_FILE}" "${LFTP_SCRIPT}"
+          }
+          trap cleanup EXIT
+
+          cp .github/known_hosts "${KNOWN_HOSTS_FILE}"
+          chmod 600 "${KNOWN_HOSTS_FILE}"
+
+          if [ "${FTP_PORT}" = "22" ]; then
+            HOST_LOOKUP="${FTP_SERVER}"
+          else
+            HOST_LOOKUP="[${FTP_SERVER}]:${FTP_PORT}"
+          fi
+
+          if ! ssh-keygen -F "${HOST_LOOKUP}" -f "${KNOWN_HOSTS_FILE}" >/dev/null; then
+            echo "Erro: chave SSH do host ${HOST_LOOKUP} não encontrada em .github/known_hosts."
+            echo "Atualize .github/known_hosts com: ssh-keyscan -p ${FTP_PORT} ${FTP_SERVER}"
+            exit 1
+          fi
+
+          escape_lftp() {
+            printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
+          }
+
+          SAFE_HOST="$(escape_lftp "${FTP_SERVER}")"
+          SAFE_USER="$(escape_lftp "${FTP_USERNAME}")"
+          SAFE_DIR="$(escape_lftp "${FTP_DIRECTORY}")"
+          SAFE_KNOWN_HOSTS="$(escape_lftp "${KNOWN_HOSTS_FILE}")"
+
+          cat > "${LFTP_SCRIPT}" <<EOF
+          set cmd:fail-exit true
+          set net:max-retries 3
+          set net:reconnect-interval-base 5
+          set net:timeout 30
+          set sftp:auto-confirm false
+          set sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=yes -o UserKnownHostsFile=${SAFE_KNOWN_HOSTS} -o GlobalKnownHostsFile=/dev/null -o PubkeyAuthentication=no -o PreferredAuthentications=password,keyboard-interactive -o ConnectTimeout=30 -o ServerAliveInterval=15 -o ServerAliveCountMax=3"
+          open --env-password -u "${SAFE_USER}" -p "${FTP_PORT}" "sftp://${SAFE_HOST}"
+          mirror --reverse --verbose=1 --no-perms --no-umask --no-symlinks --overwrite --parallel=3 --exclude-glob ".git*" --exclude-glob ".env*" --exclude-glob ".DS_Store" --exclude-glob "node_modules/" --exclude-glob "*.tmp" --exclude-glob "*.bak" --exclude-glob "*.log" --exclude-glob ".htaccess" "./dist" "${SAFE_DIR}"
+          bye
+          EOF
+
+          export LFTP_PASSWORD="${FTP_PASSWORD}"
+          lftp -f "${LFTP_SCRIPT}"
+          unset LFTP_PASSWORD
