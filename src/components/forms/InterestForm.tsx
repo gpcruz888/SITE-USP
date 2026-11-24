@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from 'react'
-import { mutate } from '@/lib/api'
+import { useEffect, useState, type FormEvent } from 'react'
+import { captureAttribution, submitCrmLead } from '@/lib/crm'
 import { Button } from '@/components/ui/Button'
 import { getTurmaAtiva, turmas } from '@/data/turma'
 
@@ -74,6 +74,10 @@ export function InterestForm({
   const [serverMessage, setServerMessage] = useState('')
   const [touched, setTouched] = useState<Record<string, boolean>>({})
 
+  useEffect(() => {
+    captureAttribution()
+  }, [])
+
   function updateField<K extends keyof FormValues>(key: K, value: FormValues[K]) {
     setValues((prev) => ({ ...prev, [key]: value }))
     setStatus('idle')
@@ -105,16 +109,16 @@ export function InterestForm({
     setStatus('loading')
 
     setServerMessage('')
-    try {
-      const result = await mutate<{ message: string }>(
-        applicationProcessId ? '/public/applications' : '/public/interests',
-        'POST',
-        { ...values, ...(applicationProcessId ? { process_id: applicationProcessId } : {}) },
+    const result = await submitCrmLead(values)
+    if (result.ok) {
+      setServerMessage(
+        applicationProcessId
+          ? 'Solicitação recebida. A equipe acompanhará sua inscrição.'
+          : 'Interesse recebido. A equipe entrará em contato.',
       )
-      setServerMessage(result.message)
       setStatus('success')
-    } catch (error) {
-      setServerMessage(error instanceof Error ? error.message : 'Não foi possível enviar. Tente novamente.')
+    } else {
+      setServerMessage(result.error)
       setStatus('error')
     }
   }
